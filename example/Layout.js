@@ -2,6 +2,7 @@
 import React, {PropTypes} from 'react';
 import {Grid, Column, Row, observeGrid} from '../src';
 import Module from './Module';
+import Nav from './Nav';
 import Banner from './Banner';
 import Wave from './Wave';
 import Chess from './Chess';
@@ -16,11 +17,13 @@ const LeftChunk = observeGrid(React.createClass({
   render() {
     if (this.props.colWidth <= 4) {
       return (
-        <div className="left-set">
-          <Module/>
-          <Module/>
-          <Module/>
-        </div>
+        <Row className="left-set">
+          <Column>
+            <Module/>
+            <Module/>
+            <Module/>
+          </Column>
+        </Row>
       );
     }
 

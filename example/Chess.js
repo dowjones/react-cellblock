@@ -4,7 +4,7 @@ import {Column, Row, observeGrid} from '../src';
 
 const Cell = React.createClass({
   propTypes: {
-    dark: PropTypes.dark,
+    dark: PropTypes.bool,
     rows: PropTypes.number
   },
 
@@ -38,7 +38,7 @@ export default observeGrid(React.createClass({
       const Columns = [];
 
       for (let c = 0; c < 8; c += 1) {
-        Columns.push(<Column width="1/8" key={c}><Cell dark={(r + c) % 2}/></Column>);
+        Columns.push(<Column width="1/8" key={c}><Cell dark={!!((r + c) % 2)}/></Column>);
       }
 
       Rows.push(<Row key={r}>{Columns}</Row>);
