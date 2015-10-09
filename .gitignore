@@ -1,0 +1,11 @@
+*.log*
+/node_modules
+/coverage
+lib/
+dist/
+cookies.txt
+.sass-cache/
+FIREFOX*
+dump.rdb
+newrelic.js
+.DS_STORE
