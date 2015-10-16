@@ -2,7 +2,9 @@
 
 ![Hello Grid](docs/sample-grid.jpg)
 
-React Cellblock is a set of grid components that allow your components to respond not only to a break point, but also to the size of their containing column.
+React Cellblock makes it easy build components that respond not only to a grid’s break point, but also to the size of their containing column.
+
+[Check out the demo page.](http://dowjones.github.io/react-cellblock/)
 
 Cellblock shares some conventions with popular grids, such as Bootstrap and Foundation, but it combines the benefits of fractional grids with the benefits of grids that use fixed units. 
 
@@ -15,8 +17,6 @@ Cellblock shares some conventions with popular grids, such as Bootstrap and Foun
 * You can specify any grid division you want (not always fractions of 12 for instance).
 * Your components can observe the grid’s break point as it changes.
 * Your components can observe the width of their containing column as it changes.
-
-[Want Examples? Check out the demo page.](http://dowjones.github.io/react-cellblock/)
 
 ## Use
 
@@ -93,7 +93,7 @@ const YourNewResponsiveComponent = observeGrid(YourComponent);
 
 ## Grid
 
-The `<Grid/>` component provides a context and configuration for all other Cellblock components. _It has no visual styles associated with it_. This allows you to have full-width items inside the grid that are not constrained by the grid. ([See an Example](/docs))
+The `<Grid/>` component provides a context and configuration for all other Cellblock components. _It has no visual styles associated with it_. This allows you to have full-width items inside the grid that are not constrained by the grid.
 
 ##### Configuring the Grid Component
 
@@ -122,6 +122,7 @@ Here is what the default configuration looks like:
   columnWidth={60}            // a “grid unit” is at least 60px wide
   gutterWidth={20}            // there are 20px between columns
   breakPoints={[4,8,12,16]}   // there are 4 breakpoints
+  flexible={[4]}              // the 4 unit view is flexible
   onChange={breakpoint => {}} // fires every time breakpoint changes
   />
 ```
@@ -133,6 +134,7 @@ Property | Type | Default | Description
 columnWidth | `Number` | `60`  | The width (in pixels) of each column unit. On flexible breakpoints this will be the minimum width.
 gutterWidth | `Number` | `20` | The width (in pixels) of the gutter between Columns.
 breakPoints | `Array` | `[4,8,12,16]` | A sorted list of how many columns are in each breakpoint.
+initialBreakPoint | `Number` | `undefined` | The first breakpoint to render (useful for isomorphic rendering)
 flexible | `Array/Bool` | `[4]` | A list of which breakPoints are flexible. If `true`, all breakpoints will flex.
 onChange | `Func` | `noop` | Fires every time the breakPoint changes. Recieves the new breakPoint as its first argument.
 className | `String` | `undefined` | A custom class name.
