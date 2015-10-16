@@ -11,7 +11,7 @@ export default observeGrid(function TypeSize({
   const padding = 15;
   const headlineSize = (colMaxPixelWidth - (2 * padding)) * (1/11);
   const lineHeight = getLineHeight(headlineSize, colMaxPixelWidth, 1.2);
-  const baselineDiscrepancy = 0.10 * headlineSize + ((lineHeight - headlineSize) / 2);
+  const baselineDiscrepancy = getbaselineDiscrepancy(headlineSize, lineHeight, 0.10);
 
   const style = {
     fontSize: headlineSize,
@@ -35,7 +35,7 @@ export default observeGrid(function TypeSize({
 // a helper to decide line height based on font size and column width
 // based on http://www.pearsonified.com/2011/12/golden-ratio-typography.php
 
-const phi = (1 + Math.sqrt(5)) / 2; // golden ratio
+const phi = (1 + Math.sqrt(5)) / 2;
 
 function getLineHeight(f, w, bias = 1) {
   // f is font size
@@ -45,4 +45,11 @@ function getLineHeight(f, w, bias = 1) {
     (1 - (w / Math.pow(f * phi, 2)))
   );
   return Math.ceil(f * ratio * bias);
+}
+
+// a helper for getting baselineDiscrepancy
+// see more at http://www.bbc.co.uk/gel/web/building-blocks/typography/css-discrepancy
+
+function getbaselineDiscrepancy(size, lineHeight, familyConstant) {
+  return familyConstant * size + ((lineHeight - size) / 2);
 }
