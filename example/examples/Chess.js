@@ -2,7 +2,22 @@
 import React from 'react';
 import {Column, Row, observeGrid} from '../../src';
 
-export default function Chess () {
+const Cell = observeGrid(function ({dark, colWidth}) {
+  const style = {
+    position: 'relative',
+    height: 0,
+    paddingBottom: '100%',
+    background: dark ? '#113300' : '#ffaa00',
+    marginBottom: 20
+  };
+  return (
+    <div className="chess-cell" style={style}>
+      <span>{colWidth >= 1 ? colWidth : ''}</span>
+    </div>
+  );
+});
+
+export default function Chess() {
   const Rows = [];
 
   for (let r = 0; r < 8; r += 1) {
@@ -22,14 +37,5 @@ export default function Chess () {
   return <div>{Rows}</div>;
 };
 
-function Cell({dark}) {
-  const style = {
-    position: 'relative',
-    height: 0,
-    paddingBottom: '100%',
-    background: dark ? '#113300' : '#ffaa00',
-    marginBottom: 20
-  };
-  return <div style={style}/>
-}
+
 

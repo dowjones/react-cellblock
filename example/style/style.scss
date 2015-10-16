@@ -142,3 +142,9 @@ $color-b: #aa6666;
 .nav-buttons {
   padding-bottom: 20px;
 }
+
+.chess-cell > span {
+  display: block;
+  padding: 10px;
+  color: #fda;
+}
