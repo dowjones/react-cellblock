@@ -15,8 +15,8 @@ export default observeGrid(React.createClass({
   render() {
     return (
       <div className={classnames('banner', this.props.className)}>
-        <h2>FULL BLEED {this.props.breakPoint}</h2>
-        {this.props.children}
+        <h2>{this.props.children}</h2>
+        Current breakpoint: {this.props.breakPoint}
       </div>
     );
   }

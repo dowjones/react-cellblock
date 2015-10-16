@@ -51,12 +51,20 @@ export default React.createClass({
   render() {
     return (
       <Grid onChange={this.props.onChange}>
-        <Banner>
-          Header
+        <Banner className="header">
+          Cellblock
         </Banner>
+        <Nav/>
         <Row>
           <Column>
-            <Module/>
+            <Row>
+              <Column width="2/3">
+                <Module/>
+              </Column>
+              <Column className="dark" width="1/3">
+                <Module/>
+              </Column>
+            </Row>
             <Row>
               <Column width="1/2">
                 <LeftChunk/>
@@ -72,8 +80,8 @@ export default React.createClass({
           <Column width="1/3"><Module/></Column>
           <Column width="1/3"><Module/></Column>
         </Row>
-        <Wave rows={16}/>
-        <Chess/>
+        {/* <Wave rows={16}/> */}
+        {/* <Chess/> */}
         <Banner className="footer">
           Footer
         </Banner>
