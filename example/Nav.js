@@ -18,7 +18,7 @@ export default observeGrid(React.createClass({
   },
 
   render() {
-    const {examples, colWidth} = this.props;
+    const {examples, changeExample, colWidth} = this.props;
     let rows;
 
     if (colWidth < 5) rows = split(examples, 3);
@@ -31,7 +31,7 @@ export default observeGrid(React.createClass({
           <Row className="nav-buttons" key={idx}>
             {buttons.map((v, idx) => (
               <Column key={idx} width={[1, buttons.length].join('/')}>
-                <div className="example-button">
+                <div className="example-button" onClick={changeExample.bind(null, v)}>
                   Example {v}
                 </div>
               </Column>
