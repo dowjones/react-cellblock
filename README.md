@@ -94,10 +94,9 @@ const YourNewResponsiveComponent = observeGrid(YourComponent);
 If your component is simple, you can take advantage of react’s [Stateless functional components](https://facebook.github.io/react/blog/#stateless-functional-components) to make the example above more succinct:
 
 ```js
-const YourNewResponsiveComponent = observeGrid(function YourComponent({colWidth}) {
-  return (colWidth > 4) ?
-      (<div>Big View</div>) : (<div>Small View</div>);
-});
+const YourNewResponsiveComponent = observeGrid(({colWidth}) => (
+  (colWidth > 4) ? (<div>Big View</div>) : (<div>Small View</div>);
+));
 ```
 
 ## Grid
