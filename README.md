@@ -48,7 +48,7 @@ Here is a layout divided into two equal columns:
 import React from 'react';
 import {Grid, Row, Column} from 'react-cellblock';
 
-const jsx = (
+const Layout = () => (
   <Grid>
     <Row>
       <Column width="1/2">
