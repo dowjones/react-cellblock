@@ -1,6 +1,6 @@
 
 import React, {PropTypes} from 'react';
-import {Row, Column, observeGrid} from '../src';
+import {Row, Column, observeGrid} from '../../src';
 
 export default observeGrid(React.createClass({
   displayName: 'Banner',
@@ -32,7 +32,7 @@ export default observeGrid(React.createClass({
             {buttons.map((v, idx) => (
               <Column key={idx} width={[1, buttons.length].join('/')}>
                 <div className="example-button" onClick={changeExample.bind(null, v)}>
-                  Example {v}
+                  Example: {v}
                 </div>
               </Column>
             ))}
