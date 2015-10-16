@@ -122,6 +122,7 @@ Here is what the default configuration looks like:
   columnWidth={60}            // a “grid unit” is at least 60px wide
   gutterWidth={20}            // there are 20px between columns
   breakPoints={[4,8,12,16]}   // there are 4 breakpoints
+  flexible={[4]}              // the 4 unit view is flexible
   onChange={breakpoint => {}} // fires every time breakpoint changes
   />
 ```
