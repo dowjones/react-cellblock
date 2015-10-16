@@ -2,7 +2,7 @@
 
 ![Hello Grid](docs/sample-grid.jpg)
 
-React Cellblock is a set of grid components that allow your components to respond not only to a break point, but also to the size of their containing column.
+React Cellblock makes it easy build components that respond not only to a grid’s break point, but also to the size of their containing column.
 
 Cellblock shares some conventions with popular grids, such as Bootstrap and Foundation, but it combines the benefits of fractional grids with the benefits of grids that use fixed units. 
 
