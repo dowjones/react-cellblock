@@ -133,6 +133,7 @@ Property | Type | Default | Description
 columnWidth | `Number` | `60`  | The width (in pixels) of each column unit. On flexible breakpoints this will be the minimum width.
 gutterWidth | `Number` | `20` | The width (in pixels) of the gutter between Columns.
 breakPoints | `Array` | `[4,8,12,16]` | A sorted list of how many columns are in each breakpoint.
+initialBreakPoint | `Number` | `undefined` | The first breakpoint to render (useful for isomorphic rendering)
 flexible | `Array/Bool` | `[4]` | A list of which breakPoints are flexible. If `true`, all breakpoints will flex.
 onChange | `Func` | `noop` | Fires every time the breakPoint changes. Recieves the new breakPoint as its first argument.
 className | `String` | `undefined` | A custom class name.
