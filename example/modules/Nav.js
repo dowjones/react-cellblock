@@ -1,8 +1,9 @@
 
 import React from 'react';
 import {Row, Column, observeGrid} from '../../src';
+import classnames from 'classnames';
 
-export default observeGrid(function Nav({colWidth, examples, changeExample}) {
+export default observeGrid(function Nav({colWidth, examples, changeExample, activeExample}) {
   let rows;
   if (colWidth < 5) {
     rows = split(examples, 3);
@@ -18,7 +19,9 @@ export default observeGrid(function Nav({colWidth, examples, changeExample}) {
         <Row className="nav-buttons" key={idx}>
           {buttons.map((name, idx) => (
             <Column key={idx} width={[1, buttons.length].join('/')}>
-              <div className="example-button" onClick={changeExample.bind(null, name)}>
+              <div
+                className={classnames('example-button', {active: name === activeExample})}
+                onClick={changeExample.bind(null, name)}>
                 {name}
               </div>
             </Column>

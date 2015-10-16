@@ -15,23 +15,27 @@ export default React.createClass({
   getInitialState() {
     const initialExample = window.location.hash.replace('#',''); // lame routing
     return {
-      Example: examples.hasOwnProperty(initialExample) ? examples[initialExample] : examples[DEFAULT]
+      example: examples.hasOwnProperty(initialExample) ? initialExample : DEFAULT
     };
   },
 
   changeExample(newExample) {
     this.setState({
-      Example: examples[newExample]
+      example: newExample
     });
     window.location.hash = newExample;
   },
 
   render() {
+    const Example = examples[this.state.example];
     return (
       <Grid onChange={this.props.onChange}>
         <Banner className="header">Cellblock</Banner>
-        <Nav examples={Object.keys(examples)} changeExample={this.changeExample}/>
-        <this.state.Example/>
+        <Nav
+          examples={Object.keys(examples)}
+          changeExample={this.changeExample}
+          activeExample={this.state.example}/>
+        <Example/>
         <Banner className="footer">Footer</Banner>
       </Grid>
     );

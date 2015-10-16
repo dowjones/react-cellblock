@@ -137,7 +137,8 @@ $color-b: #dd2266;
   -moz-box-shadow: 2px 4px 21px 0px rgba(20,0,0,0.45);
   box-shadow: 2px 4px 21px 0px rgba(20,0,0,0.45);
 
-  &:hover {
+  &:hover,
+  &.active {
     cursor: pointer;
     background: #ffaa00;
     color: #000;
