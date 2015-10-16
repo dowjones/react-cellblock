@@ -342,7 +342,6 @@ This makes more sense, because no matter what size column your component is in i
 
 [MIT](/LICENSE)
 
----
 
 ## Contributers
-[Greg Skiano](https://github.com/skiano)
+* [Greg Skiano](https://github.com/skiano)
