@@ -4,6 +4,8 @@
 
 React Cellblock makes it easy build components that respond not only to a grid’s break point, but also to the size of their containing column.
 
+[Check out the demo page.](http://dowjones.github.io/react-cellblock/)
+
 Cellblock shares some conventions with popular grids, such as Bootstrap and Foundation, but it combines the benefits of fractional grids with the benefits of grids that use fixed units. 
 
 [Why is this helpful?](docs/why-cellblock.md)
@@ -15,8 +17,6 @@ Cellblock shares some conventions with popular grids, such as Bootstrap and Foun
 * You can specify any grid division you want (not always fractions of 12 for instance).
 * Your components can observe the grid’s break point as it changes.
 * Your components can observe the width of their containing column as it changes.
-
-[Want Examples? Check out the demo page.](http://dowjones.github.io/react-cellblock/)
 
 ## Use
 
