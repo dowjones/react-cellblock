@@ -1,6 +1,6 @@
 {
   "name": "react-cellblock",
-  "version": "1.2.131",
+  "version": "1.0.0",
   "description": "A react-based grid for smarter responsive components",
   "repository": {
     "type": "git",
