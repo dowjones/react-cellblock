@@ -18,6 +18,20 @@ Cellblock shares some conventions with popular grids, such as Bootstrap and Foun
 
 [Want Examples? Check out the demo page.](http://dowjones.github.io/react-cellblock/)
 
+## Use
+
+```
+$ npm install react-cellblock
+```
+
+To run examples
+```
+$ cd react-cellblock
+$ npm install
+$ npm start
+```
+
+
 ## What’s included
 
 * [__Grid__](#grid) provides a context and configuration for all other grid components.
@@ -343,5 +357,4 @@ This makes more sense, because no matter what size column your component is in i
 [MIT](/LICENSE)
 
 
-## Contributers
-* [Greg Skiano](https://github.com/skiano)
+Released 2015 by [Greg Skiano](https://github.com/skiano) @ [Dow Jones](https://github.com/dowjones)
