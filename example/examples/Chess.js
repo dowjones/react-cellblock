@@ -1,6 +1,6 @@
 
 import React, {PropTypes} from 'react';
-import {Column, Row, observeGrid} from '../src';
+import {Column, Row, observeGrid} from '../../src';
 
 const Cell = React.createClass({
   propTypes: {
