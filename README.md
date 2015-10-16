@@ -338,5 +338,6 @@ This makes more sense, because no matter what size column your component is in i
 
 > _Note: Under the hood, `observeGrid` accesses react’s context and provides the grid context as properties to your component. Nothing prevents you from accessing the grid context values directly, observeGrid is just an easier way to do so. It also keeps your code away from implementation specific details_
 
+## License
 
-
+[MIT](/LICENSE)
