@@ -16,7 +16,21 @@ Cellblock shares some conventions with popular grids, such as Bootstrap and Foun
 * Your components can observe the grid’s break point as it changes.
 * Your components can observe the width of their containing column as it changes.
 
-[Want Examples?](docs/why-cellblock.md)
+[Want Examples? Check out the demo page.](http://dowjones.github.io/react-cellblock/)
+
+## Use
+
+```
+$ npm install react-cellblock
+```
+
+To run examples
+```
+$ cd react-cellblock
+$ npm install
+$ npm start
+```
+
 
 ## What’s included
 
@@ -338,5 +352,9 @@ This makes more sense, because no matter what size column your component is in i
 
 > _Note: Under the hood, `observeGrid` accesses react’s context and provides the grid context as properties to your component. Nothing prevents you from accessing the grid context values directly, observeGrid is just an easier way to do so. It also keeps your code away from implementation specific details_
 
+## License
+
+[MIT](/LICENSE)
 
 
+Released 2015 by [Greg Skiano](https://github.com/skiano) @ [Dow Jones](https://github.com/dowjones)
