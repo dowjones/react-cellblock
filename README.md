@@ -16,7 +16,7 @@ Cellblock shares some conventions with popular grids, such as Bootstrap and Foun
 * Your components can observe the grid’s break point as it changes.
 * Your components can observe the width of their containing column as it changes.
 
-[Want Examples?](docs/why-cellblock.md)
+[Want Examples? Check out the demo page.](http://dowjones.github.io/react-cellblock/)
 
 ## What’s included
 
