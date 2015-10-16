@@ -93,7 +93,7 @@ const YourNewResponsiveComponent = observeGrid(YourComponent);
 
 ## Grid
 
-The `<Grid/>` component provides a context and configuration for all other Cellblock components. _It has no visual styles associated with it_. This allows you to have full-width items inside the grid that are not constrained by the grid. ([See an Example](/docs))
+The `<Grid/>` component provides a context and configuration for all other Cellblock components. _It has no visual styles associated with it_. This allows you to have full-width items inside the grid that are not constrained by the grid. ([See an Example](/docs/full-width.md))
 
 ##### Configuring the Grid Component
 
