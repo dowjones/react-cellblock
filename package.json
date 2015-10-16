@@ -22,7 +22,7 @@
     "test-cover-check": "istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100",
     "test-watch": "mocha -G -w -R min -t 600 -r test/_helpers/boot $(find test ./test -type f -name '*-test.js')",
     "start": "webpack-dev-server --hot --inline",
-    "build-dev": "webpack -d"
+    "build": "webpack"
   },
   "dependencies": {
     "babel-runtime": "^5.8.20",
@@ -52,7 +52,7 @@
     "should": "^7.0.4",
     "sinon": "^1.16.1",
     "style-loader": "^0.12.3",
-    "webpack": "^1.11.0",
+    "webpack": "^1.12.2",
     "webpack-dev-server": "^1.10.1"
   }
 }

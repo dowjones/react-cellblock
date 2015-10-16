@@ -4,7 +4,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   context: path.join(__dirname),
   entry: {
-    GridExample: ['webpack/hot/dev-server', './example/index.js']
+    GridExample: ['./example/index.js']
   },
   output: {
     path: path.join(__dirname, 'dist'),

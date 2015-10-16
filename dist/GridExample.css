@@ -1,0 +1,187 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul, menu {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* additions */
+a {
+  text-decoration: none;
+  color: inherit; }
+html {
+  -webkit-text-size-adjust: 100%;
+  background: #220011;
+  font-family: helvetica;
+  font-size: 16px;
+  color: #eee;
+  -moz-font-feature-settings: "kern";
+  -moz-font-feature-settings: "kern=1";
+  -ms-font-feature-settings: "kern";
+  -o-font-feature-settings: "kern";
+  -webkit-font-feature-settings: "kern";
+  font-feature-settings: "kern"; }
+
+body {
+  min-width: 280px; }
+
+h2 {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 28px; }
+
+.module {
+  padding: 15px 10px 25px;
+  margin-bottom: 20px;
+  background: tomato;
+  min-height: 200px !important;
+  position: relative; }
+
+.dark .module {
+  background: #aa0066;
+  background: slateblue; }
+
+.left-set .module {
+  background: #aa0066; }
+
+.banner {
+  background: #dd2266;
+  padding: 20px 0px;
+  line-height: 20px;
+  text-align: center;
+  font-size: 14px; }
+  .banner.footer {
+    margin-bottom: 0;
+    background: slateblue; }
+
+.token {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+  z-index: 100;
+  background: #ffaa00;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  color: #000;
+  text-align: center;
+  line-height: 50px;
+  font-weight: bold; }
+  .token:after {
+    content: '';
+    position: absolute;
+    left: -2px;
+    right: -2px;
+    top: -2px;
+    bottom: -2px;
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 4px dotted #ffaa00; }
+
+.wave-module {
+  background: #66aa66;
+  min-height: 100px;
+  line-height: 100px;
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 30px;
+  font-style: italic;
+  color: #ffffaa;
+  text-shadow: 1px 1px 2px black; }
+
+.cb-col:nth-child(2n) .wave-module {
+  background: #dd2266; }
+
+.cb-row:nth-child(2n) .wave-module {
+  background: #dd2266; }
+
+.cb-row:nth-child(2n) .cb-col:nth-child(2n) .wave-module {
+  background: #66aa66; }
+
+.example-nav {
+  background: #aa0066;
+  padding-top: 20px;
+  margin-bottom: 20px; }
+
+.example-button {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 12px;
+  border: 1px solid #ffaa00;
+  text-align: center;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -webkit-box-shadow: 2px 4px 21px 0px rgba(20, 0, 0, 0.45);
+  -moz-box-shadow: 2px 4px 21px 0px rgba(20, 0, 0, 0.45);
+  box-shadow: 2px 4px 21px 0px rgba(20, 0, 0, 0.45); }
+  .example-button:hover,
+  .example-button.active {
+    cursor: pointer;
+    background: #ffaa00;
+    color: #000; }
+
+.nav-buttons {
+  padding-bottom: 20px; }
+
+.chess-cell > span {
+  display: block;
+  padding: 10px;
+  color: #fda; }
+
+.terminal {
+  background: tomato;
+  margin-bottom: 20px;
+  min-height: 60px; }
+
+.two-up .terminal {
+  background: slateblue; }
+
+.three-up .terminal {
+  background: tomato; }
+
+.small.terminal {
+  background: #aa0066; }
