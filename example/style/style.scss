@@ -148,3 +148,21 @@ $color-b: #aa6666;
   padding: 10px;
   color: #fda;
 }
+
+.terminal {
+  background: tomato;
+  margin-bottom: 20px;
+  min-height: 60px;
+}
+
+.two-up .terminal {
+  background: slateblue;
+}
+
+.three-up .terminal {
+  background: tomato;
+}
+
+.small.terminal {
+  background: #aa0066;
+}

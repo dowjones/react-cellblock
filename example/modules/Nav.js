@@ -16,10 +16,10 @@ export default observeGrid(function Nav({colWidth, examples, changeExample}) {
     <div className="example-nav">
       {rows.map((buttons, idx) => (
         <Row className="nav-buttons" key={idx}>
-          {buttons.map((v, idx) => (
+          {buttons.map((name, idx) => (
             <Column key={idx} width={[1, buttons.length].join('/')}>
-              <div className="example-button" onClick={changeExample.bind(null, v)}>
-                Example: {v}
+              <div className="example-button" onClick={changeExample.bind(null, name)}>
+                {name}
               </div>
             </Column>
           ))}

@@ -1,5 +1,5 @@
 
-import React, {PropTypes} from 'react';
+import React from 'react';
 import {Column, Row, observeGrid} from '../../src';
 
 export default observeGrid(function Wave({colWidth, rows = 12}) {
