@@ -5,17 +5,17 @@ import Style from './util/Style';
 import eventListener from 'eventlistener';
 import gridContext from './util/context';
 import getThreshold from './util/getThreshold';
-import {validBreakPoint, validBreakPoints} from './util/validators';
+import {validBreakpoint, validBreakpoints} from './util/validators';
 
 export default class Grid extends Component {
   static propTypes = {
-    breakpoints: validBreakPoints,
+    breakpoints: validBreakpoints,
     children: PropTypes.any,
     className: PropTypes.string,
     columnWidth: PropTypes.number,
     flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
     gutterWidth: PropTypes.number,
-    initialBreakpoint: validBreakPoint,
+    initialBreakpoint: validBreakpoint,
     onChange: PropTypes.func
   };
 

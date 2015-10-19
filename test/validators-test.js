@@ -28,44 +28,44 @@ describe('Grid Type Validation', () => {
     (Types.gridUnit({a: null}, 'prop') instanceof Error).should.be.false();
   });
 
-  it('validBreakPoint', () => {
-    (Types.validBreakPoint({
+  it('validBreakpoint', () => {
+    (Types.validBreakpoint({
       prop: 1,
       breakpoints: [1, 3, 5],
     }, 'prop') instanceof Error).should.be.false();
-    (Types.validBreakPoint({
+    (Types.validBreakpoint({
       prop: 2,
       breakpoints: [1, 3, 5],
     }, 'prop') instanceof Error).should.be.true();
-    (Types.validBreakPoint({
+    (Types.validBreakpoint({
       prop: 2,
       breakpoints: null,
     }, 'prop') instanceof Error).should.be.true();
-    (Types.validBreakPoint({
+    (Types.validBreakpoint({
       breakpoints: null,
     }, 'prop') instanceof Error).should.be.false();
   });
 
-  it('validBreakPoint server', () => {
+  it('validBreakpoint server', () => {
     let win = global.window;
     delete global.window;
-    (Types.validBreakPoint({
+    (Types.validBreakpoint({
       breakpoints: null,
     }, 'prop') instanceof Error).should.be.true();
     global.window = win;
   });
 
-  it('validBreakPoints', () => {
-    (Types.validBreakPoints({
+  it('validBreakpoints', () => {
+    (Types.validBreakpoints({
       prop: [1, 3, 5]
     }, 'prop') instanceof Error).should.be.false();
-    (Types.validBreakPoints({
+    (Types.validBreakpoints({
       prop: [1, 7, 5]
     }, 'prop') instanceof Error).should.be.true();
-    (Types.validBreakPoints({
+    (Types.validBreakpoints({
       prop: [1, '3', 5]
     }, 'prop') instanceof Error).should.be.true();
-    (Types.validBreakPoints({
+    (Types.validBreakpoints({
       prop: null
     }, 'prop') instanceof Error).should.be.true();
   });

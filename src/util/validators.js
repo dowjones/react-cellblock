@@ -26,14 +26,14 @@ export function gridUnit(props, propName, componentName) {
   }
 }
 
-export function validBreakPoint(props, propName) {
+export function validBreakpoint(props, propName) {
   if (typeof window === 'undefined' && !props[propName]) {
     return new Error('Isomorphic grids require an initialBreakpoint');
   }
   return PropTypes.oneOf(props.breakpoints).apply(null, arguments);
 }
 
-export function validBreakPoints(props, propName, componentName) {
+export function validBreakpoints(props, propName, componentName) {
   switch (true) {
     case !Array.isArray(props[propName]) || !isAllIntegers(props[propName]):
       return createError(props, propName, componentName, 'expected an array of integers');
