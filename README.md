@@ -48,7 +48,7 @@ Here is a layout divided into two equal columns:
 import React from 'react';
 import {Grid, Row, Column} from 'react-cellblock';
 
-const jsx = (
+const Layout = () => (
   <Grid>
     <Row>
       <Column width="1/2">
@@ -89,6 +89,18 @@ const YourNewResponsiveComponent = observeGrid(YourComponent);
 <Column width={9}>
   <YourNewResponsiveComponent/> // this will render “Big View”
 </Column>
+```
+
+If your component is simple, you can take advantage of react’s [Stateless functional components](https://facebook.github.io/react/blog/#stateless-functional-components) to make the example above more succinct:
+
+```js
+const ResponsiveComponent = observeGrid(({colWidth}) => (
+  (colWidth > 4) ? (
+    <div>Big View</div>
+  ) : (
+    <div>Small View</div>
+  );
+));
 ```
 
 ## Grid
