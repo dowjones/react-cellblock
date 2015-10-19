@@ -15,7 +15,7 @@ export default class Grid extends Component {
     columnWidth: PropTypes.number,
     flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
     gutterWidth: PropTypes.number,
-    initialBreakPoint: validBreakPoint,
+    initialBreakpoint: validBreakPoint,
     onChange: PropTypes.func
   };
 
@@ -36,7 +36,7 @@ export default class Grid extends Component {
 
   state = {
     maxColWidth: this.props.columnWidth,
-    breakpoint: this.props.initialBreakPoint
+    breakpoint: this.props.initialBreakpoint
   };
 
   getChildContext() {

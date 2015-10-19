@@ -433,9 +433,9 @@ describe('Grid', () => {
       global.window = win;
     });
 
-    it('should use initialBreakPoint', () => {
+    it('should use initialBreakpoint', () => {
       const grid = renderToStaticMarkup((
-        <Grid {... options} initialBreakPoint={5}>
+        <Grid {... options} initialBreakpoint={5}>
           <Row/>
         </Grid>
       ), rootNode);
@@ -506,7 +506,7 @@ describe('Grid', () => {
       }));
 
       const grid = render((
-        <Grid {... options} onChange={onChange} initialBreakPoint={5}><Module/></Grid>
+        <Grid {... options} onChange={onChange} initialBreakpoint={5}><Module/></Grid>
       ), rootNode);
 
       const listener = eventlistener.add.firstCall.args[2];
@@ -523,7 +523,7 @@ describe('Grid', () => {
       onUpdate.calledTwice.should.be.true();
     });
 
-    it('should trigger the onChange once even if initialBreakPoint matches', () => {
+    it('should trigger the onChange once even if initialBreakpoint matches', () => {
       const onChange = stub();
       const onUpdate = stub();
       const Module = observeGrid(React.createClass({
@@ -532,7 +532,7 @@ describe('Grid', () => {
       }));
 
       const grid = render((
-        <Grid {... options} onChange={onChange} initialBreakPoint={10}><Module/></Grid>
+        <Grid {... options} onChange={onChange} initialBreakpoint={10}><Module/></Grid>
       ), rootNode);
 
       const listener = eventlistener.add.firstCall.args[2];
