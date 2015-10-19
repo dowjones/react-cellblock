@@ -151,7 +151,7 @@ flexible | `Array/Bool` | `[4]` | A list of which breakpoints are flexible. If `
 onChange | `Func` | `noop` | Fires every time the breakpoint changes. Recieves the new breakpoint as its first argument.
 className | `String` | `undefined` | A custom class name.
 
-> _Note: You should never put a `<Grid/>` inside anoter `<Grid/>`._
+> _Note: You should never put a `<Grid/>` inside another `<Grid/>`._
 
 ## Row
 
