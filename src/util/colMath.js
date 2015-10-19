@@ -46,7 +46,7 @@ function smallerIntegerWidth(rawWidth, context) {
 function computeWidth(rawWidth, context, parentWidth, colWidth) {
   const {
     gutterWidth,
-    breakPoint
+    breakpoint
   } = context;
 
   if (isInteger(rawWidth)) {

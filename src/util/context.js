@@ -8,5 +8,5 @@ export default {
   colWidth: PropTypes.number,
   colMinPixelWidth: PropTypes.number,
   colMaxPixelWidth: PropTypes.number,
-  breakPoint: PropTypes.number
+  breakpoint: PropTypes.number
 };

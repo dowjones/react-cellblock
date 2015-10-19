@@ -36,7 +36,7 @@ export default class Column extends Component {
 
     return {
       maxColWidth: maxColWidth,
-      breakPoint: this.props.isRoot ? this.props.width : this.context.breakPoint,
+      breakpoint: this.props.isRoot ? this.props.width : this.context.breakpoint,
       colWidth: computeSpan(rawWidth, this.context),
       colMinPixelWidth: computeMinWidth(rawWidth, this.context),
       colMaxPixelWidth: computeMaxWidth(rawWidth, this.context, maxColWidth)
@@ -45,7 +45,7 @@ export default class Column extends Component {
 
   getPropForBreak(prop) {
     if (this.props.isRoot) return this.props[prop];
-    const breakProp = ['at' + this.context.breakPoint, prop].join('-');
+    const breakProp = ['at' + this.context.breakpoint, prop].join('-');
     return typeof this.props[breakProp] === 'undefined' ? this.props[prop] : this.props[breakProp];
   }
 

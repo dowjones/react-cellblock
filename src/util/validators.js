@@ -30,7 +30,7 @@ export function validBreakPoint(props, propName) {
   if (typeof window === 'undefined' && !props[propName]) {
     return new Error('Isomorphic grids require an initialBreakPoint');
   }
-  return PropTypes.oneOf(props.breakPoints).apply(null, arguments);
+  return PropTypes.oneOf(props.breakpoints).apply(null, arguments);
 }
 
 export function validBreakPoints(props, propName, componentName) {

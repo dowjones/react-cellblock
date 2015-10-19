@@ -101,17 +101,17 @@ When you set up a Cellblock grid, you choose how wide you want your columns and 
 
 For example, if you want to have two breakpoints that contain 4 and 8 columns respectively you would do this: 
 ```js
-<Grid breakPoints={[4,8]}/>
+<Grid breakpoints={[4,8]}/>
 ```
 As a result you would have a “4 unit” breakpoint and an “8 unit” breakpoint. The 8 unit breakpoint would trigger as soon as the screen is wide enough to fit 8 columns.
 
 If you want the grid to be flexible at all breakpoints: 
 ```js
-<Grid breakPoints={[4,8]} flexible={true}/>
+<Grid breakpoints={[4,8]} flexible={true}/>
 ```
 And if you want the only certain breakpoints to be flexible:
 ```js
-<Grid breakPoints={[4,8]} flexible={[4]}/>
+<Grid breakpoints={[4,8]} flexible={[4]}/>
 ```
 
 ##### Example Configuration
@@ -121,7 +121,7 @@ Here is what the default configuration looks like:
 <Grid
   columnWidth={60}            // a “grid unit” is at least 60px wide
   gutterWidth={20}            // there are 20px between columns
-  breakPoints={[4,8,12,16]}   // there are 4 breakpoints
+  breakpoints={[4,8,12,16]}   // there are 4 breakpoints
   flexible={[4]}              // the 4 unit view is flexible
   onChange={breakpoint => {}} // fires every time breakpoint changes
   />
@@ -133,10 +133,10 @@ Property | Type | Default | Description
 :------- | :--- | :------ | :----------
 columnWidth | `Number` | `60`  | The width (in pixels) of each column unit. On flexible breakpoints this will be the minimum width.
 gutterWidth | `Number` | `20` | The width (in pixels) of the gutter between Columns.
-breakPoints | `Array` | `[4,8,12,16]` | A sorted list of how many columns are in each breakpoint.
+breakpoints | `Array` | `[4,8,12,16]` | A sorted list of how many columns are in each breakpoint.
 initialBreakPoint | `Number` | `undefined` | The first breakpoint to render (useful for isomorphic rendering)
-flexible | `Array/Bool` | `[4]` | A list of which breakPoints are flexible. If `true`, all breakpoints will flex.
-onChange | `Func` | `noop` | Fires every time the breakPoint changes. Recieves the new breakPoint as its first argument.
+flexible | `Array/Bool` | `[4]` | A list of which breakpoints are flexible. If `true`, all breakpoints will flex.
+onChange | `Func` | `noop` | Fires every time the breakpoint changes. Recieves the new breakpoint as its first argument.
 className | `String` | `undefined` | A custom class name.
 
 > _Note: You should never put a `<Grid/>` inside anoter `<Grid/>`._
@@ -323,12 +323,12 @@ const YourComponent = observeGrid(class extends Component {
     colWidth: PropTypes.number, // column width in “grid units”
     colMinPixelWidth: PropTypes.number, // minimum number of pixels available in this column
     colMaxPixelWidth: PropTypes.number, // maximum number of pixels available in this column
-    breakPoint: PropTypes.number, // current grid breakPoint
+    breakpoint: PropTypes.number, // current grid breakpoint
   };
   // ...
 });
 ```
-`colWidth` is ideal for most responsive use cases, because it doesn’t matter whether or not the breakpoint is flexible. 3 grid units is always 3 grid units. However, for more difficult cases, you can use `colMinPixelWidth` and `colMaxPixelWidth` (they will be the same for non-flexible breakpoints). `breakPoint` is available, but not typically as useful.
+`colWidth` is ideal for most responsive use cases, because it doesn’t matter whether or not the breakpoint is flexible. 3 grid units is always 3 grid units. However, for more difficult cases, you can use `colMinPixelWidth` and `colMaxPixelWidth` (they will be the same for non-flexible breakpoints). `breakpoint` is available, but not typically as useful.
 
 ##### A Note on responsive components
 

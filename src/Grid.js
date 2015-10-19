@@ -9,7 +9,7 @@ import {validBreakPoint, validBreakPoints} from './util/validators';
 
 export default class Grid extends Component {
   static propTypes = {
-    breakPoints: validBreakPoints,
+    breakpoints: validBreakPoints,
     children: PropTypes.any,
     className: PropTypes.string,
     columnWidth: PropTypes.number,
@@ -25,7 +25,7 @@ export default class Grid extends Component {
     onChange() {},
     columnWidth: 60,
     gutterWidth: 20,
-    breakPoints: [4, 8, 12, 16],
+    breakpoints: [4, 8, 12, 16],
     flexible: [4]
   };
 
@@ -36,7 +36,7 @@ export default class Grid extends Component {
 
   state = {
     maxColWidth: this.props.columnWidth,
-    breakPoint: this.props.initialBreakPoint
+    breakpoint: this.props.initialBreakPoint
   };
 
   getChildContext() {
@@ -47,13 +47,13 @@ export default class Grid extends Component {
   }
 
   componentWillMount() {
-    const {breakPoints, columnWidth, gutterWidth} = this.props;
-    const thresholds = breakPoints.map(p => (p * columnWidth) + (p * gutterWidth));
-    const breakPoint = this.state.breakPoint || this.props.breakPoints[getThreshold(thresholds)];
+    const {breakpoints, columnWidth, gutterWidth} = this.props;
+    const thresholds = breakpoints.map(p => (p * columnWidth) + (p * gutterWidth));
+    const breakpoint = this.state.breakpoint || this.props.breakpoints[getThreshold(thresholds)];
 
     this.setState({
-      breakPoint: breakPoint,
-      maxColWidth: this.getMaxColWidth(breakPoint),
+      breakpoint: breakpoint,
+      maxColWidth: this.getMaxColWidth(breakpoint),
       thresholds: thresholds
     });
   }
@@ -68,14 +68,14 @@ export default class Grid extends Component {
   }
 
   getMaxColWidth(units) {
-    const {breakPoints, columnWidth, gutterWidth, flexible} = this.props;
+    const {breakpoints, columnWidth, gutterWidth, flexible} = this.props;
 
     if (!flexible ||
       (Array.isArray(flexible) && flexible.indexOf(units) === -1)) {
       return columnWidth;
     }
 
-    const nextPoint = breakPoints[breakPoints.indexOf(units) + 1];
+    const nextPoint = breakpoints[breakpoints.indexOf(units) + 1];
 
     if (!nextPoint) {
       return Infinity;
@@ -86,15 +86,15 @@ export default class Grid extends Component {
   }
 
   syncGrid(triggerChange) {
-    const b =  this.props.breakPoints[getThreshold(this.state.thresholds)];
-    const isChange = (b !== this.state.breakPoint);
+    const b =  this.props.breakpoints[getThreshold(this.state.thresholds)];
+    const isChange = (b !== this.state.breakpoint);
     if (isChange) this.updateGrid(b);
     if (isChange || triggerChange === true) this.props.onChange(b);
   }
 
   updateGrid(b) {
     this.setState({
-      breakPoint: b,
+      breakpoint: b,
       maxColWidth: this.getMaxColWidth(b)
     });
   }
@@ -103,7 +103,7 @@ export default class Grid extends Component {
     return (
       <Column
         isRoot
-        width={this.state.breakPoint}
+        width={this.state.breakpoint}
         maxColWidth={this.state.maxColWidth}
         className={this.props.className}>
         <Style gutter={this.props.gutterWidth}/>

@@ -38,7 +38,7 @@ describe('Grid', () => {
     options = {
       columnWidth: 80,
       gutterWidth: 20,
-      breakPoints: [5, 10, 15]
+      breakpoints: [5, 10, 15]
     };
 
     Observer = observeGrid(Module);
@@ -73,22 +73,22 @@ describe('Grid', () => {
       ), rootNode);
 
       const listener = eventlistener.add.firstCall.args[2];
-      let breakPoint;
+      let breakpoint;
 
-      options.breakPoints.forEach((point, idx) => {
+      options.breakpoints.forEach((point, idx) => {
         const min = getThreshold(point, options.columnWidth, options.gutterWidth);
-        const max = options.breakPoints[idx + 1] ?
-          getThreshold(options.breakPoints[idx + 1], options.columnWidth, options.gutterWidth) - 1 : Infinity;
+        const max = options.breakpoints[idx + 1] ?
+          getThreshold(options.breakpoints[idx + 1], options.columnWidth, options.gutterWidth) - 1 : Infinity;
 
         setWindowWidth(min);
         listener();
-        breakPoint = findRenderedComponentWithType(grid, Module).props.breakPoint;
-        breakPoint.should.eql(point);
+        breakpoint = findRenderedComponentWithType(grid, Module).props.breakpoint;
+        breakpoint.should.eql(point);
 
         setWindowWidth(max);
         listener();
-        breakPoint = findRenderedComponentWithType(grid, Module).props.breakPoint;
-        breakPoint.should.eql(point);
+        breakpoint = findRenderedComponentWithType(grid, Module).props.breakpoint;
+        breakpoint.should.eql(point);
       });
     });
   });
@@ -373,16 +373,16 @@ describe('Grid', () => {
       const observers = scryRenderedComponentsWithType(grid, Module);
 
       observers.map(o => o.props).should.eql([
-        { breakPoint: 10,
+        { breakpoint: 10,
           colWidth: 2,
           colMinPixelWidth: 180,
           colMaxPixelWidth: 280,
           extraProp: true },
-        { breakPoint: 10,
+        { breakpoint: 10,
           colWidth: 8,
           colMinPixelWidth: 780,
           colMaxPixelWidth: 1180 },
-        { breakPoint: 10,
+        { breakpoint: 10,
           colWidth: 4,
           colMinPixelWidth: 380,
           colMaxPixelWidth: 580 }
@@ -393,16 +393,16 @@ describe('Grid', () => {
       listener();
 
       observers.map(o => o.props).should.eql([
-        { breakPoint: 15,
+        { breakpoint: 15,
           colWidth: 3,
           colMinPixelWidth: 280,
           colMaxPixelWidth: Infinity,
           extraProp: true },
-        { breakPoint: 15,
+        { breakpoint: 15,
           colWidth: 12,
           colMinPixelWidth: 1180,
           colMaxPixelWidth: Infinity },
-        { breakPoint: 15,
+        { breakpoint: 15,
           colWidth: 6,
           colMinPixelWidth: 580,
           colMaxPixelWidth: Infinity }
@@ -466,7 +466,7 @@ describe('Grid', () => {
       const grid = render(<Grid {... options}><Observer/></Grid>, rootNode);
       const mod = findRenderedComponentWithType(grid, Module);
 
-      mod.props.breakPoint.should.equal(5);
+      mod.props.breakpoint.should.equal(5);
 
       document.documentElement.clientWidth = c;
     });
@@ -485,7 +485,7 @@ describe('Grid', () => {
       const {props} = findRenderedComponentWithType(grid, Module);
 
       props.should.eql({
-        breakPoint: 10,
+        breakpoint: 10,
         colWidth: 2,
         colMinPixelWidth: 180,
         colMaxPixelWidth: 280
@@ -543,8 +543,8 @@ describe('Grid', () => {
   });
 });
 
-function getThreshold(breakPoint, col, gutter) {
-  return (breakPoint * col) + (breakPoint * gutter);
+function getThreshold(breakpoint, col, gutter) {
+  return (breakpoint * col) + (breakpoint * gutter);
 }
 
 function setWindowWidth(width) {

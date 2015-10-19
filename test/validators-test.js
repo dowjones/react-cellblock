@@ -31,18 +31,18 @@ describe('Grid Type Validation', () => {
   it('validBreakPoint', () => {
     (Types.validBreakPoint({
       prop: 1,
-      breakPoints: [1, 3, 5],
+      breakpoints: [1, 3, 5],
     }, 'prop') instanceof Error).should.be.false();
     (Types.validBreakPoint({
       prop: 2,
-      breakPoints: [1, 3, 5],
+      breakpoints: [1, 3, 5],
     }, 'prop') instanceof Error).should.be.true();
     (Types.validBreakPoint({
       prop: 2,
-      breakPoints: null,
+      breakpoints: null,
     }, 'prop') instanceof Error).should.be.true();
     (Types.validBreakPoint({
-      breakPoints: null,
+      breakpoints: null,
     }, 'prop') instanceof Error).should.be.false();
   });
 
@@ -50,7 +50,7 @@ describe('Grid Type Validation', () => {
     let win = global.window;
     delete global.window;
     (Types.validBreakPoint({
-      breakPoints: null,
+      breakpoints: null,
     }, 'prop') instanceof Error).should.be.true();
     global.window = win;
   });
