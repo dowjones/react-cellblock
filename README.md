@@ -2,7 +2,7 @@
 
 ![Hello Grid](docs/sample-grid.jpg)
 
-React Cellblock makes it easy build components that respond not only to a grid’s break point, but also to the size of their containing column.
+React Cellblock makes it easy to build components that respond not only to a grid’s break point, but also to the size of their containing column.
 
 [Check out the demo page.](http://dowjones.github.io/react-cellblock/)
 
