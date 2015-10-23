@@ -541,6 +541,115 @@ describe('Grid', () => {
       onUpdate.notCalled.should.be.true();
     });
   });
+
+  describe('shouldComponentUpdate', () => {
+    it('shouldComponentUpdate should not break for Columns)', () => {
+      const Block = React.createClass({
+        shouldComponentUpdate() { return false; },
+        render() { return <Column/>; }
+      });
+
+      const grid = render((
+        <Grid {... options}>
+          <Block/>
+        </Grid>
+      ), rootNode);
+
+      const column = scryRenderedComponentsWithType(grid, Column)[1];
+
+      const listener = eventlistener.add.firstCall.args[2];
+      setWindowWidth(100);
+      listener();
+
+      column.context.breakpoint.should.equal(5);
+      column.context.colWidth.should.equal(5);
+    });
+
+    it('shouldComponentUpdate should not break for Rows', () => {
+      const Block = React.createClass({
+        shouldComponentUpdate() { return false; },
+        render() { return <Row/>; }
+      });
+
+      const grid = render((
+        <Grid {... options}>
+          <Block/>
+        </Grid>
+      ), rootNode);
+
+      const row = findRenderedComponentWithType(grid, Row);
+      const listener = eventlistener.add.firstCall.args[2];
+      setWindowWidth(100);
+      listener();
+
+      row.context.breakpoint.should.equal(5);
+      row.context.colWidth.should.equal(5);
+    });
+
+    it('shouldComponentUpdate should not break for observeGrid', () => {
+      const log = [];
+
+      const MyComponent = observeGrid(React.createClass({
+        propTypes: { colWidth: React.PropTypes.number },
+
+        render() {
+          log.push(this.props.colWidth);
+          return <div/>;
+        }
+      }));
+
+      const Block = React.createClass({
+        shouldComponentUpdate() { return false; },
+        render() { return <MyComponent/>; }
+      });
+
+      const grid = render((
+        <Grid {... options}>
+          <Block/>
+        </Grid>
+      ), rootNode);
+
+      const listener = eventlistener.add.firstCall.args[2];
+      setWindowWidth(100);
+      listener();
+
+      log.should.eql([10, 5]);
+    });
+
+    it('shouldComponentUpdate should not break for parent (not owner)', () => {
+      // const Block = React.createClass({
+      //   propTypes: {
+      //     children: React.PropTypes.any
+      //   },
+
+      //   shouldComponentUpdate() {
+      //     return false;
+      //   },
+
+      //   render() {
+      //     return this.props.children;
+      //   }
+      // });
+
+      // const grid = render((
+      //   <Grid {... options}>
+      //     <Block>
+      //       <Column at10-offset={5} width={5}/>
+      //     </Block>
+      //   </Grid>
+      // ), rootNode);
+
+      // const column = scryRenderedComponentsWithType(grid, Column)[1];
+
+      // // console.log(column.context)
+
+      // const listener = eventlistener.add.firstCall.args[2];
+      // setWindowWidth(100);
+      // listener();
+
+      // console.log('breakpoint after:', column.context.breakpoint)
+    });
+  });
 });
 
 function getThreshold(breakpoint, col, gutter) {

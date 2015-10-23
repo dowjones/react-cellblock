@@ -9,7 +9,7 @@ export default function handleStaleContext(Component) {
 
   prototype.componentDidMount = function () {
     this.update = function (newbreakpoint) {
-      if (this.context.breakpoint !== newbreakpoint) {
+      if (this.context.breakpoint && this.context.breakpoint !== newbreakpoint) {
         dirtyForceContextUpdate(this._reactInternalInstance, this.context.breakpoint);
       }
     }.bind(this);
@@ -32,6 +32,7 @@ export default function handleStaleContext(Component) {
  */
 function dirtyForceContextUpdate(internalInstance, staleBreakpoint) {
   const owner = internalInstance._currentElement._owner;
+
   if (!owner) return;
 
   if (owner._context.breakpoint !== staleBreakpoint) {
