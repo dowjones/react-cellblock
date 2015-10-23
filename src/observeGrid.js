@@ -21,8 +21,14 @@ export default function observeGrid(DumbComponent) {
       this.context.removeGridObserver(this.update);
     }
 
-    update() {
-      console.log('observer!', this.context.colWidth);
+    /*
+     * If an ansestor blocks with shouldComponentUpdate
+     * the context breakpoint will not match the new breakpoint
+     */
+    update(newbreakpoint) {
+      if (this.context.breakpoint !== newbreakpoint) {
+        dirtyForceContextUpdate(this._reactInternalInstance, this.context.breakpoint);
+      }
     }
 
     render() {
@@ -35,4 +41,22 @@ export default function observeGrid(DumbComponent) {
       />);
     }
   };
+}
+
+
+/*
+ * even if you identify WHEN your context is stale
+ * you need a way to know what it should be
+ * so this is a crazy function to find the element that stopped the update
+ * and force it to update
+ */
+function dirtyForceContextUpdate(internalInstance, staleBreakpoint) {
+  const owner = internalInstance._currentElement._owner;
+  if (!owner) return;
+
+  if (owner._context.breakpoint !== staleBreakpoint) {
+    owner._instance.updater.enqueueForceUpdate(owner._instance);
+  } else {
+    return dirtyForceContextUpdate(owner, staleBreakpoint);
+  }
 }

@@ -5,6 +5,8 @@ import examples from './examples';
 import Banner from './modules/Banner';
 import Nav from './modules/Nav';
 
+import Optimized from './modules/Optimized';
+
 const DEFAULT = Object.keys(examples)[0];
 
 export default React.createClass({
@@ -35,6 +37,7 @@ export default React.createClass({
           examples={Object.keys(examples)}
           changeExample={this.changeExample}
           activeExample={this.state.example}/>
+        <Optimized/>
         <Example/>
         <Banner className="footer">Footer</Banner>
       </Grid>

@@ -110,7 +110,7 @@ export default class Grid extends Component {
       breakpoint: b,
       maxColWidth: this.getMaxColWidth(b)
     });
-    observers.forEach(fn => fn());
+    observers.forEach(fn => fn(b));
   }
 
   render() {
