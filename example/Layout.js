@@ -37,8 +37,8 @@ export default React.createClass({
           examples={Object.keys(examples)}
           changeExample={this.changeExample}
           activeExample={this.state.example}/>
-        <Optimized/>
         <Example/>
+        <Optimized/>
         <Banner className="footer">Footer</Banner>
       </Grid>
     );
