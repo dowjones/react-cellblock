@@ -1,5 +1,5 @@
 
-import React, {Component, PropTypes, Children, cloneElement, isValidElement} from 'react';
+import React, {Component, PropTypes} from 'react';
 import Column from './Column';
 import Style from './util/Style';
 import eventListener from 'eventlistener';
@@ -107,8 +107,7 @@ export default class Grid extends Component {
         maxColWidth={this.state.maxColWidth}
         className={this.props.className}>
         <Style gutter={this.props.gutterWidth}/>
-        {Children.map(this.props.children, (c) =>
-          isValidElement(c) ? cloneElement(c) : c)}
+        {this.props.children}
       </Column>
     );
   }
