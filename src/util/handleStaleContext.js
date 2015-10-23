@@ -1,4 +1,9 @@
 
+/*
+ * This is a temporary fix for when shouldComponentUpdate()
+ * makes stale context
+ * for reference check out react routers issue https://github.com/rackt/react-router/issues/470
+ */
 export default function handleStaleContext(Component) {
   const {prototype} = Component;
 
