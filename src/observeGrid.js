@@ -11,7 +11,7 @@ import handleStaleContext from './util/handleStaleContext';
 
 export default function observeGrid(DumbComponent) {
   return class extends Component {
-    static displayName = 'Grid' + (DumbComponent.displayName || DumbComponent.name);
+    static displayName = 'observeGrid(' + (DumbComponent.displayName || DumbComponent.name) + ')';
 
     static contextTypes = gridContext;
 
