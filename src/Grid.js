@@ -1,11 +1,22 @@
 
-import React, {Component, PropTypes, Children, cloneElement, isValidElement} from 'react';
+import React, {Component, PropTypes} from 'react';
 import Column from './Column';
 import Style from './util/Style';
 import eventListener from 'eventlistener';
 import gridContext from './util/context';
 import getThreshold from './util/getThreshold';
 import {validBreakpoint, validBreakpoints} from './util/validators';
+
+const observers = [];
+
+function addGridObserver(fn) {
+  observers.push(fn);
+}
+
+function removeGridObserver(fn) {
+  const index = observers.indexOf(fn);
+  if (index > -1) observers.splice(index, 1);
+}
 
 export default class Grid extends Component {
   static propTypes = {
@@ -41,6 +52,8 @@ export default class Grid extends Component {
 
   getChildContext() {
     return {
+      addGridObserver: addGridObserver,
+      removeGridObserver: removeGridObserver,
       colUnitWidth: this.props.columnWidth,
       gutterWidth: this.props.gutterWidth
     };
@@ -97,6 +110,7 @@ export default class Grid extends Component {
       breakpoint: b,
       maxColWidth: this.getMaxColWidth(b)
     });
+    observers.forEach(fn => fn());
   }
 
   render() {
@@ -107,8 +121,7 @@ export default class Grid extends Component {
         maxColWidth={this.state.maxColWidth}
         className={this.props.className}>
         <Style gutter={this.props.gutterWidth}/>
-        {Children.map(this.props.children, (c) =>
-          isValidElement(c) ? cloneElement(c) : c)}
+        {this.props.children}
       </Column>
     );
   }
