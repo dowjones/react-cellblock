@@ -16,6 +16,13 @@ import {
  computeWidth
 } from './util/colMath';
 
+/*
+ * To deal with shouldComponentUpdate bug.
+ * this should not be permenant
+ */
+import handleStaleContext from './util/handleStaleContext';
+@handleStaleContext
+
 export default class Column extends Component {
   static propTypes = {
     children: PropTypes.any,

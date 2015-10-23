@@ -4,6 +4,13 @@ import gridContext from './util/context';
 import classnames from 'classnames';
 import {ROW} from './util/constants';
 
+/*
+ * To deal with shouldComponentUpdate bug.
+ * this should not be permenant
+ */
+import handleStaleContext from './util/handleStaleContext';
+@handleStaleContext
+
 export default class Row extends Component {
   static propTypes = {
     children: PropTypes.any,
