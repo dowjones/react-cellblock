@@ -11,14 +11,22 @@ export default class Row extends Component {
   };
 
   static contextTypes = gridContext;
+  static childContextTypes = gridContext;
+
+  getChildContext() {
+    return {
+      cellblock: true
+    };
+  }
 
   render() {
-    const {cellblockGet, cellblockViewport} = this.context;
+    const {cellblock, cellblockGet, cellblockViewport} = this.context;
+    const v = cellblockViewport[1];
+    const c = cellblockGet('columnWidth');
+    const g = cellblockGet('gutterWidth');
 
-    console.log(cellblockViewport);
-
-    const style = {
-      maxWidth: 1000
+    const style = cellblock ? null : {
+      maxWidth: (v * c) + (v * g)
     };
 
     return (

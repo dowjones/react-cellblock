@@ -11,7 +11,7 @@ export default function observeGrid(DumbComponent) {
     render() {
       return (<DumbComponent
         breakpoint={this.context.breakpoint}
-        colWidth={this.context.colWidth}
+        colWidth={10} // todo...
         colMinPixelWidth={this.context.colMinPixelWidth}
         colMaxPixelWidth={this.context.colMaxPixelWidth}
         {... this.props}

@@ -93,16 +93,12 @@ export default class Grid extends Component {
   }
 
   updateGrid(b) {
-    this.setState({
-      breakpoint: b,
-      maxColWidth: this.getMaxColWidth(b)
-    });
-    observers.forEach(fn => fn(b));
+    this.setState({breakpoint: b});
   }
 
   render() {
-    const {className, gutterWidth, children} = this.props;
     const {breakpoint} = this.state;
+    const {className, gutterWidth, children} = this.props;
     const breakPointRange = [breakpoint, this.getMaxBreatPoint(breakpoint)];
     return (
       <Column isRoot viewport={breakPointRange} className={className}>

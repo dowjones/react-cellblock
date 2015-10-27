@@ -1,21 +1,10 @@
 
 import React, {Component, PropTypes} from 'react';
-import classnames from 'classnames';
-import gridContext from './util/context';
-import {isInteger, isFraction} from './util/types';
 import {gridUnitFraction} from './util/validators';
 import {COL, GRID} from './util/constants';
+import gridContext from './util/context';
+import classnames from 'classnames';
 import cellblock from 'cellblock';
-import {
- fractionToDecimal,
- decimalToPercent,
- numberToPercent,
- stringToPercent,
- computeSpan,
- computeMinWidth,
- computeMaxWidth,
- computeWidth
-} from './util/colMath';
 
 export default class Column extends Component {
   static propTypes = {
@@ -28,40 +17,33 @@ export default class Column extends Component {
   };
 
   static contextTypes = gridContext;
-
   static childContextTypes = gridContext;
 
   getChildContext() {
     return {
-      cellblockViewport: this.props.isRoot ? this.props.viewport : this.context.cellblockViewport,
       cellblockColumn: this.grid,
-
-      // deprecated
-      colWidth: 10
+      cellblockViewport: this.props.isRoot ? 
+        this.props.viewport : this.context.cellblockViewport
     };
   }
 
   componentWillMount() {
-    if (this.context.cellblockColumn) {
-      this.grid = cellblock(this.context.cellblockColumn, this.props.width);
-      console.log('attatch: [%s] %s to [%s]', this.grid.getId(), this.grid.getFraction().join('/'), this.context.cellblockColumn.getId());
+    const {cellblockColumn} = this.context;
+
+    if (cellblockColumn) {
+      this.grid = cellblock(cellblockColumn, this.props.width);
     } else {
       this.grid = cellblock();
     }
   }
 
-  componentWillUpdate() {
+  componentWillUpdate({width}) {
+    this.grid.setWidth(width);
   }
 
   componentWillUnmount() {
     console.log('detach:', this.grid.getId());
     this.grid.detach();
-  }
-
-  getPropForBreak(prop) {
-    if (this.props.isRoot) return this.props[prop];
-    const breakProp = ['at' + this.context.breakpoint, prop].join('-');
-    return typeof this.props[breakProp] === 'undefined' ? this.props[prop] : this.props[breakProp];
   }
 
   render() {
@@ -73,22 +55,13 @@ export default class Column extends Component {
       );
     }
 
-    const style = {};
-    const width = this.getPropForBreak('width');
-    const offset = this.getPropForBreak('offset');
     const className = classnames(COL, this.props.className);
-
-    if (isFraction(width)) {
-      style.width = stringToPercent(width);
-    } else if (isInteger(width)) {
-      style.width = numberToPercent(width, this.context.colWidth);
-    }
-
-    if (isFraction(offset)) {
-      style.marginLeft = stringToPercent(offset);
-    } else if (isInteger(offset)) {
-      style.marginLeft = numberToPercent(offset, this.context.colWidth);
-    }
+    const width = this.grid.getFraction();
+    const {offset}= this.props;
+    const style = {};
+    
+    if (offset) style.marginLeft = fractionToPercent(offset);
+    style.width = decimalToPercent(width[0] / width[1]);
 
     return (
       <div className={className} style={style}>
@@ -96,5 +69,14 @@ export default class Column extends Component {
       </div>
     );
   }
+}
+
+function fractionToPercent(v) {
+  const f = v.split('/');
+  return decimalToPercent(parseInt(f[0]) / parseInt(f[1]));
+}
+
+function decimalToPercent(v) {
+  return parseFloat((v * 100).toFixed(4)) + '%';
 }
 
