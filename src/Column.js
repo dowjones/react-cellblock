@@ -2,7 +2,7 @@
  * The Column component
  * divides Rows into fractions
  */
- 
+
 import React, {Component, PropTypes} from 'react';
 import {gridFraction} from './util/validators';
 import {COL, GRID} from './util/constants';
@@ -46,7 +46,6 @@ export default class Column extends Component {
   }
 
   componentWillUnmount() {
-    console.log('detach:', this.grid.getId());
     this.grid.detach();
   }
 
