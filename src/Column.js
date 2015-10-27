@@ -5,6 +5,7 @@ import gridContext from './util/context';
 import {isInteger, isFraction} from './util/types';
 import {gridUnit} from './util/validators';
 import {COL, GRID} from './util/constants';
+import cellblock from 'cellblock';
 import {
  fractionToDecimal,
  decimalToPercent,
@@ -20,8 +21,8 @@ import {
  * To deal with shouldComponentUpdate bug.
  * this should not be permenant
  */
-import handleStaleContext from './util/handleStaleContext';
-@handleStaleContext
+// import handleStaleContext from './util/handleStaleContext';
+// @handleStaleContext
 
 export default class Column extends Component {
   static propTypes = {
@@ -38,16 +39,37 @@ export default class Column extends Component {
   static childContextTypes = gridContext;
 
   getChildContext() {
+    // console.log('getChildContext', this.props.width);
+
     const rawWidth = this.getPropForBreak('width') || this.context.colWidth;
     const maxColWidth = this.props.isRoot ? this.props.maxColWidth : this.context.maxColWidth;
 
     return {
-      maxColWidth: maxColWidth,
+      cellblock: this.grid,
       breakpoint: this.props.isRoot ? this.props.width : this.context.breakpoint,
+
+      maxColWidth: maxColWidth,
       colWidth: computeSpan(rawWidth, this.context),
       colMinPixelWidth: computeMinWidth(rawWidth, this.context),
       colMaxPixelWidth: computeMaxWidth(rawWidth, this.context, maxColWidth)
     };
+  }
+
+  componentWillMount() {
+    if (this.context.cellblock) {
+      this.grid = cellblock(this.context.cellblock, this.props.width);
+      console.log('attatch:', this.grid.getId(), this.grid.getFraction());
+    } else {
+      this.grid = cellblock();
+    }
+  }
+
+  componentWillUpdate() {
+  }
+
+  componentWillUnmount() {
+    console.log('detach:', this.grid.getId());
+    this.grid.detach();
   }
 
   getPropForBreak(prop) {

@@ -6,6 +6,7 @@
  */
 export default function handleStaleContext(Component) {
   const {prototype} = Component;
+  const {componentWillUnmount, componentDidMount} = prototype;
 
   prototype.componentDidMount = function () {
     this.update = function (newbreakpoint) {
@@ -19,6 +20,7 @@ export default function handleStaleContext(Component) {
 
   prototype.componentWillUnmount = function () {
     this.context.removeGridObserver(this.update);
+    if (componentWillUnmount) componentWillUnmount();
   }
 
   return Component;
