@@ -1,3 +1,8 @@
+/*
+ * The Row component
+ * Used inside Grid or Inside Column
+ * Creates a place to nest Columns
+ */
 
 import React, {Component, PropTypes} from 'react';
 import gridContext from './util/context';

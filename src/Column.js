@@ -1,6 +1,10 @@
-
+/*
+ * The Column component
+ * divides Rows into fractions
+ */
+ 
 import React, {Component, PropTypes} from 'react';
-import {gridUnitFraction} from './util/validators';
+import {gridFraction} from './util/validators';
 import {COL, GRID} from './util/constants';
 import gridContext from './util/context';
 import classnames from 'classnames';
@@ -11,9 +15,9 @@ export default class Column extends Component {
     children: PropTypes.any,
     className: PropTypes.string,
     isRoot: PropTypes.bool,
-    offset: gridUnitFraction,
+    offset: gridFraction,
     viewport: PropTypes.array,
-    width: gridUnitFraction
+    width: gridFraction
   };
 
   static contextTypes = gridContext;

@@ -1,28 +1,12 @@
 
-import {isNumber, isString, isFraction, isInteger} from './types';
 import {PropTypes} from 'react';
 
-export function gridUnitFraction(props, propName, componentName) {
+const FRACTION_RE = /^\d+\/\d+$/;
+
+export function gridFraction(props, propName, componentName) {
   const value = props[propName];
   if (props[propName] && !isFraction(value)) {
     return createError(props, propName, componentName, 'expected a fraction string `a/b` (ie: 2/3)');
-  }
-}
-
-export function gridUnitInteger(props, propName, componentName) {
-  const value = props[propName];
-  if (!isInteger(value))
-    return createError(props, propName, componentName, 'expected an integer');
-}
-
-export function gridUnit(props, propName, componentName) {
-  switch (true) {
-    case isString(props[propName]):
-      return gridUnitFraction(props, propName, componentName);
-    case isNumber(props[propName]):
-      return gridUnitInteger(props, propName, componentName);
-    case props.hasOwnProperty(propName):
-      return createError(props, propName, componentName, 'expected a fraction string or integer');
   }
 }
 
@@ -45,6 +29,22 @@ export function validBreakpoints(props, propName, componentName) {
 function createError(props, propName, componentName, message) {
   const str = `Invalid prop ${propName} of value ${props[propName]} supplied to ${componentName}`;
   return new Error(str + ', ' + message);
+}
+
+function isString(v) {
+  return typeof v === 'string';
+}
+
+function isNumber(v) {
+  return typeof v === 'number';
+}
+
+function isFraction(v) {
+  return isString(v) && FRACTION_RE.test(v);
+}
+
+function isInteger(v) {
+  return isNumber(v) && (v % 1) === 0;
 }
 
 function isSorted(arr) {

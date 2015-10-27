@@ -1,3 +1,7 @@
+/*
+ * The top level Grid component
+ * Only used once per page
+ */
 
 import React, {Component, PropTypes} from 'react';
 import Column from './Column';
