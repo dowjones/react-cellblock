@@ -2,7 +2,12 @@
 import {PropTypes} from 'react';
 
 export default {
-  cellblock: PropTypes.object,
+  cellblockGet: PropTypes.func,
+  cellblockColumn: PropTypes.object,
+  cellblockViewport: PropTypes.array,
+
+
+  // deprecated
   addGridObserver: PropTypes.func,
   removeGridObserver: PropTypes.func,
   maxColWidth: PropTypes.number,

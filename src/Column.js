@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import classnames from 'classnames';
 import gridContext from './util/context';
 import {isInteger, isFraction} from './util/types';
-import {gridUnit} from './util/validators';
+import {gridUnitFraction} from './util/validators';
 import {COL, GRID} from './util/constants';
 import cellblock from 'cellblock';
 import {
@@ -17,21 +17,14 @@ import {
  computeWidth
 } from './util/colMath';
 
-/*
- * To deal with shouldComponentUpdate bug.
- * this should not be permenant
- */
-// import handleStaleContext from './util/handleStaleContext';
-// @handleStaleContext
-
 export default class Column extends Component {
   static propTypes = {
     children: PropTypes.any,
     className: PropTypes.string,
     isRoot: PropTypes.bool,
-    maxColWidth: PropTypes.number,
-    offset: gridUnit,
-    width: gridUnit
+    offset: gridUnitFraction,
+    viewport: PropTypes.array,
+    width: gridUnitFraction
   };
 
   static contextTypes = gridContext;
@@ -39,26 +32,19 @@ export default class Column extends Component {
   static childContextTypes = gridContext;
 
   getChildContext() {
-    // console.log('getChildContext', this.props.width);
-
-    const rawWidth = this.getPropForBreak('width') || this.context.colWidth;
-    const maxColWidth = this.props.isRoot ? this.props.maxColWidth : this.context.maxColWidth;
-
     return {
-      cellblock: this.grid,
-      breakpoint: this.props.isRoot ? this.props.width : this.context.breakpoint,
+      cellblockViewport: this.props.isRoot ? this.props.viewport : this.context.cellblockViewport,
+      cellblockColumn: this.grid,
 
-      maxColWidth: maxColWidth,
-      colWidth: computeSpan(rawWidth, this.context),
-      colMinPixelWidth: computeMinWidth(rawWidth, this.context),
-      colMaxPixelWidth: computeMaxWidth(rawWidth, this.context, maxColWidth)
+      // deprecated
+      colWidth: 10
     };
   }
 
   componentWillMount() {
-    if (this.context.cellblock) {
-      this.grid = cellblock(this.context.cellblock, this.props.width);
-      console.log('attatch:', this.grid.getId(), this.grid.getFraction());
+    if (this.context.cellblockColumn) {
+      this.grid = cellblock(this.context.cellblockColumn, this.props.width);
+      console.log('attatch: [%s] %s to [%s]', this.grid.getId(), this.grid.getFraction().join('/'), this.context.cellblockColumn.getId());
     } else {
       this.grid = cellblock();
     }

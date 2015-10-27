@@ -4,7 +4,7 @@ import {PropTypes} from 'react';
 
 export function gridUnitFraction(props, propName, componentName) {
   const value = props[propName];
-  if (!isFraction(value)) {
+  if (props[propName] && !isFraction(value)) {
     return createError(props, propName, componentName, 'expected a fraction string `a/b` (ie: 2/3)');
   }
 }

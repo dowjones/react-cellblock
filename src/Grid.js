@@ -7,17 +7,6 @@ import gridContext from './util/context';
 import getThreshold from './util/getThreshold';
 import {validBreakpoint, validBreakpoints} from './util/validators';
 
-const observers = [];
-
-function addGridObserver(fn) {
-  observers.push(fn);
-}
-
-function removeGridObserver(fn) {
-  const index = observers.indexOf(fn);
-  if (index > -1) observers.splice(index, 1);
-}
-
 export default class Grid extends Component {
   static propTypes = {
     breakpoints: validBreakpoints,
@@ -46,16 +35,21 @@ export default class Grid extends Component {
   }
 
   state = {
-    maxColWidth: this.props.columnWidth,
     breakpoint: this.props.initialBreakpoint
   };
 
   getChildContext() {
+    const {props} = this;
+
     return {
-      addGridObserver: addGridObserver,
-      removeGridObserver: removeGridObserver,
-      colUnitWidth: this.props.columnWidth,
-      gutterWidth: this.props.gutterWidth
+      cellblockGet(key) {
+        switch (key) {
+          case 'gutterWidth':
+            return props.gutterWidth;
+          case 'columnWidth':
+            return props.columnWidth;
+        }
+      }
     };
   }
 
@@ -66,7 +60,6 @@ export default class Grid extends Component {
 
     this.setState({
       breakpoint: breakpoint,
-      maxColWidth: this.getMaxColWidth(breakpoint),
       thresholds: thresholds
     });
   }
@@ -80,21 +73,15 @@ export default class Grid extends Component {
     eventListener.remove(window, 'resize', this.syncGrid);
   }
 
-  getMaxColWidth(units) {
-    const {breakpoints, columnWidth, gutterWidth, flexible} = this.props;
+  getMaxBreatPoint(minBreakpoint) {
+    const {breakpoints, flexible} = this.props;
 
     if (!flexible ||
-      (Array.isArray(flexible) && flexible.indexOf(units) === -1)) {
-      return columnWidth;
-    }
-
-    const nextPoint = breakpoints[breakpoints.indexOf(units) + 1];
-
-    if (!nextPoint) {
-      return Infinity;
+      (Array.isArray(flexible) && flexible.indexOf(minBreakpoint) === -1)) {
+      return minBreakpoint;
     } else {
-      const largeTotal = (nextPoint * columnWidth) + ((nextPoint - 1) * gutterWidth);
-      return (largeTotal - ((units - 1) * gutterWidth)) / units;
+      const nextPoint = breakpoints[breakpoints.indexOf(minBreakpoint) + 1];
+      return nextPoint || breakpoints[breakpoints.length - 1];
     }
   }
 
@@ -114,14 +101,13 @@ export default class Grid extends Component {
   }
 
   render() {
+    const {className, gutterWidth, children} = this.props;
+    const {breakpoint} = this.state;
+    const breakPointRange = [breakpoint, this.getMaxBreatPoint(breakpoint)];
     return (
-      <Column
-        isRoot
-        width={this.state.breakpoint}
-        maxColWidth={this.state.maxColWidth}
-        className={this.props.className}>
-        <Style gutter={this.props.gutterWidth}/>
-        {this.props.children}
+      <Column isRoot viewport={breakPointRange} className={className}>
+        <Style gutter={gutterWidth}/>
+        {children}
       </Column>
     );
   }

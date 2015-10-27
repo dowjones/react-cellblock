@@ -2,13 +2,6 @@
 import React, {Component} from 'react';
 import gridContext from './util/context';
 
-/*
- * To deal with shouldComponentUpdate bug.
- * this should not be permenant
- */
-import handleStaleContext from './util/handleStaleContext';
-@handleStaleContext
-
 export default function observeGrid(DumbComponent) {
   return class extends Component {
     static displayName = 'observeGrid(' + (DumbComponent.displayName || DumbComponent.name) + ')';

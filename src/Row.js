@@ -4,13 +4,6 @@ import gridContext from './util/context';
 import classnames from 'classnames';
 import {ROW} from './util/constants';
 
-/*
- * To deal with shouldComponentUpdate bug.
- * this should not be permenant
- */
-import handleStaleContext from './util/handleStaleContext';
-@handleStaleContext
-
 export default class Row extends Component {
   static propTypes = {
     children: PropTypes.any,
@@ -20,10 +13,12 @@ export default class Row extends Component {
   static contextTypes = gridContext;
 
   render() {
-    const {gutterWidth, colMaxPixelWidth} = this.context;
+    const {cellblockGet, cellblockViewport} = this.context;
+
+    console.log(cellblockViewport);
 
     const style = {
-      maxWidth: colMaxPixelWidth < Infinity ? colMaxPixelWidth + gutterWidth : null
+      maxWidth: 1000
     };
 
     return (
