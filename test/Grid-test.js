@@ -61,7 +61,7 @@ describe('Grid', () => {
       eventlistener.remove.calledWith(window, 'resize').should.be.true();
     });
 
-    it('should change breakpoints based on window width', () => {
+    it.only('should change breakpoints based on window width', () => {
       const grid = render((
         <Grid {... options}>
           <Row>

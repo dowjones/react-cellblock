@@ -28,7 +28,7 @@ export default function observeGrid(DumbComponent) {
       const g = cellblockGet('gutterWidth');
 
       return (<DumbComponent
-        breakpoint={this.context.breakpoint}
+        breakpoint={v[0]}
         colWidth={cellblockColumn.getWidth(v[0], 0)}
         colMinPixelWidth={cellblockColumn.getWidth((v[0] * c) + (v[0] * g) - g, g)}
         colMaxPixelWidth={cellblockColumn.getWidth((v[1] * c) + (v[1] * g) - g, g)}
