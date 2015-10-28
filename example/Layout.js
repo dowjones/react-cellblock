@@ -33,14 +33,14 @@ export default React.createClass({
     const Example = examples[this.state.example];
     return (
       <Grid onChange={this.props.onChange}>
-        <Banner className="header">Cellblock</Banner>
+        <Blocker>
+          <Banner className="header">Cellblock</Banner>
+        </Blocker>
         <Nav
           examples={Object.keys(examples)}
           changeExample={this.changeExample}
           activeExample={this.state.example}/>
-        <Blocker>
-          <Example/>
-        </Blocker>
+        <Example/>
         <Optimized/>
         <Banner className="footer">Footer</Banner>
       </Grid>

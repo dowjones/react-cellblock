@@ -27,6 +27,7 @@ export function forceContext(Component) {
       if (breakpoint !== newBreak) {
         this.forceUpdate();
         breakpoint = newBreak;
+        console.log('force')
       } else {
         breakpoint = null;
       }
