@@ -18,6 +18,7 @@ import {validBreakpoint, validBreakpoints} from './util/validators';
  * When React offers a better way, this should be removed
  */
 import {updateObservers} from './util/handleStaleContext';
+let breakCount = 0;
 
 export default class Grid extends Component {
   static propTypes = {
@@ -79,7 +80,8 @@ export default class Grid extends Component {
 
     this.setState({
       breakpoint: breakpoint,
-      thresholds: thresholds
+      thresholds: thresholds,
+      breakCount: 0, // for patch
     });
   }
 
@@ -112,16 +114,22 @@ export default class Grid extends Component {
   }
 
   updateGrid(b) {
-    this.setState({breakpoint: b});
-    updateObservers(b); // This is for the patch
+    breakCount = breakCount += 1; // This is for the patch
+
+    this.setState({
+      breakpoint: b,
+      breakCount: breakCount // This is for the patch
+    });
+
+    updateObservers(breakCount); // This is for the patch
   }
 
   render() {
-    const {breakpoint} = this.state;
+    const {breakpoint, breakCount} = this.state;
     const {className, gutterWidth, children} = this.props;
     const breakPointRange = [breakpoint, this.getMaxBreatPoint(breakpoint)];
     return (
-      <Column isRoot viewport={breakPointRange} breakpoint={breakpoint} className={className}>
+      <Column isRoot viewport={breakPointRange} breakCount={breakCount} className={className}>
         <Style gutter={gutterWidth}/>
         {children}
       </Column>

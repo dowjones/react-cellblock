@@ -4,5 +4,5 @@ export default {
   cellblock: PropTypes.bool,
   cellblockGet: PropTypes.func,
   cellblockColumn: PropTypes.object,
-  cellblockBreakpoint: PropTypes.number
+  cellblockBreak: PropTypes.number // purely to identify staleness
 };

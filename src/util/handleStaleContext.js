@@ -13,22 +13,16 @@ export function forceContext(Component) {
 
   Component.prototype.componentDidMount = function() {
     if (componentDidMount) componentDidMount.apply(this, arguments);
+    if (this.props.isRoot) return;
 
     this.observerId = observerId++;
-    let breakpoint;
-
     observers[this.observerId] = (newBreak) => {
-      if (!breakpoint) breakpoint = getBreakpoint(this);
-
       /*
        * If the context appears stale
        * force an update
        */
-      if (breakpoint !== newBreak) {
+      if (this.context.cellblockBreak !== newBreak) {
         this.forceUpdate();
-        breakpoint = newBreak;
-      } else {
-        breakpoint = null;
       }
     };
   }
@@ -45,8 +39,4 @@ export function updateObservers(newBreakpoint) {
   for (let o in observers) {
     observers[o](newBreakpoint);
   }
-}
-
-function getBreakpoint(inst) {
-  return inst.props.isRoot ? inst.props.breakpoint : inst.context.cellblockBreakpoint;
 }
