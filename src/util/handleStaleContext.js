@@ -17,12 +17,12 @@ export function forceContext(Component) {
     this.observerId = observerId++;
 
     observers[this.observerId] = function (newBreak) {
-      const breakpoint = this.props.isRoot ? 
-        this.props.breakpoint : this.context.cellblockBreakpoint;
+      // const breakpoint = this.props.isRoot ? 
+      //   this.props.breakpoint : this.context.cellblockBreakpoint;
 
-      if (breakpoint !== newBreak) {
-        console.log('somethings up!');
-      }
+      // if (breakpoint !== newBreak) {
+      //   console.log('somethings up!'); // WHY DOESNT THIS CHECK WORK?
+      // }
 
       this.forceUpdate();
 
@@ -43,7 +43,6 @@ export function forceContext(Component) {
 }
 
 export function updateObservers(newBreakpoint) {
-  console.log(Object.keys(observers).length)
   for (let o in observers) {
     observers[o](newBreakpoint);
   }
