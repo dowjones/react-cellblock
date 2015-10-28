@@ -12,11 +12,11 @@ export default class Optimized extends Component {
 
   render() {
     return (
-      <Row>
-        <Column width="1/2">
+      <Row testing>
+        <Column width="1/2" testing>
           <TypeSize/>
         </Column>
-        <Column width="1/2">
+        <Column width="1/2" testing>
           <TypeSize/>
         </Column>
       </Row>

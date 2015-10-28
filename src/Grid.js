@@ -55,6 +55,10 @@ export default class Grid extends Component {
   getChildContext() {
     const {props} = this;
 
+    const getViewport = function () {
+      return [this.state.breakpoint, this.getMaxBreatPoint(this.state.breakpoint)];
+    }.bind(this);
+
     return {
       cellblockGet(key) {
         switch (key) {
@@ -62,6 +66,8 @@ export default class Grid extends Component {
             return props.gutterWidth;
           case 'columnWidth':
             return props.columnWidth;
+          case 'viewport':
+            return getViewport();
         }
       }
     };
@@ -116,7 +122,7 @@ export default class Grid extends Component {
     const {className, gutterWidth, children} = this.props;
     const breakPointRange = [breakpoint, this.getMaxBreatPoint(breakpoint)];
     return (
-      <Column isRoot viewport={breakPointRange} className={className}>
+      <Column isRoot viewport={breakPointRange} breakpoint={breakpoint} className={className}>
         <Style gutter={gutterWidth}/>
         {children}
       </Column>

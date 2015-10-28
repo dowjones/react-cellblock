@@ -24,6 +24,7 @@ import {forceContext} from './util/handleStaleContext';
 
 export default class Column extends Component {
   static propTypes = {
+    breakpoint: PropTypes.number, 
     children: PropTypes.any,
     className: PropTypes.string,
     isRoot: PropTypes.bool,
@@ -38,8 +39,8 @@ export default class Column extends Component {
   getChildContext() {
     return {
       cellblockColumn: this.grid,
-      cellblockViewport: this.props.isRoot ? 
-        this.props.viewport : this.context.cellblockViewport
+      cellblockBreakpoint: this.props.isRoot ? 
+        this.props.breakpoint : this.context.cellblockBreakpoint
     };
   }
 

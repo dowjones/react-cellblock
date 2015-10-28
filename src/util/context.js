@@ -5,5 +5,5 @@ export default {
   cellblock: PropTypes.bool,
   cellblockGet: PropTypes.func,
   cellblockColumn: PropTypes.object,
-  cellblockViewport: PropTypes.array
+  cellblockBreakpoint: PropTypes.number
 };
