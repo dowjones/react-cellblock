@@ -55,10 +55,37 @@ describe('Grid', () => {
       eventlistener.add.calledWith(window, 'resize').should.be.true();
     });
 
-    it('should clean up event listener', () => {
+    it.only('should clean up event listener', () => {
       render((<Grid/>), rootNode);
       Dom.unmountComponentAtNode(rootNode);
       eventlistener.remove.calledWith(window, 'resize').should.be.true();
+    });
+
+    it.only('should clean up celblock column objects', () => {
+      let renderCol = false;
+      const Remover = React.createClass({
+        render() {
+          renderCol = !renderCol;
+          return renderCol ? <Column/> : null;
+        }
+      });
+
+      const layout = render((
+        <Grid>
+          <Column>
+            <Remover/>
+          </Column>
+        </Grid>
+      ), rootNode);
+
+      const cols = scryRenderedComponentsWithType(layout, Column);
+      const parent = cols[1];
+
+      Object.keys(parent.grid.children).length.should.equal(1);
+
+      parent.forceUpdate(); // cause column to unmount
+
+      Object.keys(parent.grid.children).length.should.equal(0);
     });
 
     it('should change breakpoints based on window width', () => {
