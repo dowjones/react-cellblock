@@ -55,13 +55,13 @@ describe('Grid', () => {
       eventlistener.add.calledWith(window, 'resize').should.be.true();
     });
 
-    it.only('should clean up event listener', () => {
+    it('should clean up event listener', () => {
       render((<Grid/>), rootNode);
       Dom.unmountComponentAtNode(rootNode);
       eventlistener.remove.calledWith(window, 'resize').should.be.true();
     });
 
-    it.only('should clean up celblock column objects', () => {
+    it('should clean up celblock column objects', () => {
       let renderCol = false;
       const Remover = React.createClass({
         render() {
