@@ -17,8 +17,8 @@ import {validBreakpoint, validBreakpoints} from './util/validators';
  * updating interested components.
  * When React offers a better way, this should be removed
  */
+let breakCount = 0; // everytime grid changes, increment so we can check for staleness
 import {updateObservers} from './util/handleStaleContext';
-let breakCount = 0;
 
 export default class Grid extends Component {
   static propTypes = {
