@@ -46,6 +46,7 @@
     "mocha": "^2.2.5",
     "node-sass": "^3.2.0",
     "proxyquire": "^1.7.1",
+    "react-addons-pure-render-mixin": "^0.14.0",
     "react-addons-test-utils": "^0.14.0-beta3",
     "react-hot-loader": "^1.2.8",
     "require-directory": "^2.1.1",

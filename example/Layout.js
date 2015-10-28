@@ -6,6 +6,7 @@ import Banner from './modules/Banner';
 import Nav from './modules/Nav';
 
 import Optimized from './modules/Optimized';
+import Blocker from './modules/Blocker';
 
 const DEFAULT = Object.keys(examples)[0];
 
@@ -37,7 +38,9 @@ export default React.createClass({
           examples={Object.keys(examples)}
           changeExample={this.changeExample}
           activeExample={this.state.example}/>
-        <Example/>
+        <Blocker>
+          <Example/>
+        </Blocker>
         <Optimized/>
         <Banner className="footer">Footer</Banner>
       </Grid>
