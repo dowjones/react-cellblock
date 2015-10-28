@@ -1,4 +1,3 @@
-
 import {PropTypes} from 'react';
 
 const FRACTION_RE = /^\d+\/\d+$/;

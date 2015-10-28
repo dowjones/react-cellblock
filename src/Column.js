@@ -2,7 +2,6 @@
  * The Column component
  * divides Rows into fractions
  */
-
 import React, {Component, PropTypes} from 'react';
 import {gridFraction} from './util/validators';
 import {COL, GRID} from './util/constants';
@@ -10,9 +9,8 @@ import gridContext from './util/context';
 import classnames from 'classnames';
 import cellblock from 'cellblock';
 
-
-/* 
- * A patch: 
+/*
+ * A patch:
  * shouldComponentUpdate() can block context updates
  * so we need to add a fallback method for
  * updating interested components.
@@ -24,7 +22,7 @@ import {forceContext} from './util/handleStaleContext';
 
 export default class Column extends Component {
   static propTypes = {
-    breakpoint: PropTypes.number, 
+    breakpoint: PropTypes.number,
     children: PropTypes.any,
     className: PropTypes.string,
     isRoot: PropTypes.bool,
@@ -39,7 +37,7 @@ export default class Column extends Component {
   getChildContext() {
     return {
       cellblockColumn: this.grid,
-      cellblockBreakpoint: this.props.isRoot ? 
+      cellblockBreakpoint: this.props.isRoot ?
         this.props.breakpoint : this.context.cellblockBreakpoint
     };
   }
@@ -75,7 +73,7 @@ export default class Column extends Component {
     const width = this.grid.getFraction();
     const {offset}= this.props;
     const style = {};
-    
+
     if (offset) style.marginLeft = fractionToPercent(offset);
     style.width = decimalToPercent(width[0] / width[1]);
 
@@ -95,4 +93,3 @@ function fractionToPercent(v) {
 function decimalToPercent(v) {
   return parseFloat((v * 100).toFixed(4)) + '%';
 }
-

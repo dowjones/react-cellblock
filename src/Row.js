@@ -3,14 +3,13 @@
  * Used inside Grid or Inside Column
  * Creates a place to nest Columns
  */
-
 import React, {Component, PropTypes} from 'react';
 import gridContext from './util/context';
 import classnames from 'classnames';
 import {ROW} from './util/constants';
 
-/* 
- * A patch: 
+/*
+ * A patch:
  * shouldComponentUpdate() can block context updates
  * so we need to add a fallback method for
  * updating interested components.

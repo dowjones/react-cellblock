@@ -2,7 +2,6 @@
  * The top level Grid component
  * Only used once per page
  */
-
 import React, {Component, PropTypes} from 'react';
 import Column from './Column';
 import Style from './util/Style';
@@ -11,8 +10,8 @@ import gridContext from './util/context';
 import getThreshold from './util/getThreshold';
 import {validBreakpoint, validBreakpoints} from './util/validators';
 
-/* 
- * A patch: 
+/*
+ * A patch:
  * shouldComponentUpdate() can block context updates
  * so we need to add a fallback method for
  * updating interested components.

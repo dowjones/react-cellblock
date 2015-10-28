@@ -2,7 +2,6 @@
  * Higher order component
  * allows you to build your responsive components
  */
-
 import React, {Component} from 'react';
 import gridContext from './util/context';
 
