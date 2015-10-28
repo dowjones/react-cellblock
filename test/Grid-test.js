@@ -511,7 +511,7 @@ describe('Grid', () => {
       });
     });
 
-    it.only('should get around shouldUpdate when the parent blocks', () => {
+    it('should get around shouldUpdate when the parent blocks', () => {
       setWindowWidth(2000);
 
       const Blocker = React.createClass({
