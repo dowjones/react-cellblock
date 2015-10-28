@@ -15,7 +15,6 @@ import gridContext from './util/context';
 import {forceContext} from './util/handleStaleContext';
 
 @forceContext // apply patch
-
 export default function observeGrid(DumbComponent) {
   return class extends Component {
     static displayName = 'observeGrid(' + (DumbComponent.displayName || DumbComponent.name) + ')';

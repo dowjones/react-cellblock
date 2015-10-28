@@ -19,7 +19,6 @@ import cellblock from 'cellblock';
 import {forceContext} from './util/handleStaleContext';
 
 @forceContext // apply patch
-
 export default class Column extends Component {
   static propTypes = {
     breakpoint: PropTypes.number,

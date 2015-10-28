@@ -18,7 +18,6 @@ import {ROW} from './util/constants';
 import {forceContext} from './util/handleStaleContext';
 
 @forceContext // apply patch
-
 export default class Row extends Component {
   static propTypes = {
     children: PropTypes.any,

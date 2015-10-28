@@ -17,7 +17,7 @@ export function forceContext(Component) {
     this.observerId = observerId++;
     let breakpoint;
 
-    observers[this.observerId] = function (newBreak) {
+    observers[this.observerId] = (newBreak) => {
       if (!breakpoint) breakpoint = getBreakpoint(this);
 
       /*
@@ -30,7 +30,7 @@ export function forceContext(Component) {
       } else {
         breakpoint = null;
       }
-    }.bind(this);
+    };
   }
 
   Component.prototype.componentWillUnmount = function() {
