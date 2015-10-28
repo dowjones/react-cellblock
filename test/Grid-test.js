@@ -1,7 +1,7 @@
 
 import proxyquire from 'proxyquire';
 import {stub} from 'sinon';
-import React from 'react';
+import React, {PropTypes} from 'react';
 import Dom, {render, findDOMNode} from 'react-dom';
 import {renderToStaticMarkup} from 'react-dom/server';
 
@@ -402,7 +402,7 @@ describe('Grid', () => {
   });
 
   describe('On change support', () => {
-    it.only('should not update unless the breakpoint changes', () => {
+    it('should not update unless the breakpoint changes', () => {
       const onChange = stub();
       const onUpdate = stub();
       const Module = observeGrid(React.createClass({
@@ -431,8 +431,6 @@ describe('Grid', () => {
       listener();
 
       onChange.calledTwice.should.be.true();
-
-      console.log(onUpdate.callCount);
       onUpdate.calledTwice.should.be.true(); // breakpoint updated twice
     });
 
@@ -456,111 +454,61 @@ describe('Grid', () => {
   });
 
   describe('shouldComponentUpdate', () => {
-    it('shouldComponentUpdate should not break for Columns)', () => {
-      const Block = React.createClass({
-        shouldComponentUpdate() { return false; },
-        render() { return <Column/>; }
-      });
+    it('should get around shouldUpdate when the owner blocks', () => {
+      setWindowWidth(2000);
 
-      const grid = render((
-        <Grid {... options}>
-          <Block/>
-        </Grid>
-      ), rootNode);
-
-      const column = scryRenderedComponentsWithType(grid, Column)[1];
-
-      const listener = eventlistener.add.firstCall.args[2];
-      setWindowWidth(100);
-      listener();
-
-      column.context.breakpoint.should.equal(5);
-      column.context.colWidth.should.equal(5);
-    });
-
-    it('shouldComponentUpdate should not break for Rows', () => {
-      const Block = React.createClass({
-        shouldComponentUpdate() { return false; },
-        render() { return <Row/>; }
-      });
-
-      const grid = render((
-        <Grid {... options}>
-          <Block/>
-        </Grid>
-      ), rootNode);
-
-      const row = findRenderedComponentWithType(grid, Row);
-      const listener = eventlistener.add.firstCall.args[2];
-      setWindowWidth(100);
-      listener();
-
-      row.context.breakpoint.should.equal(5);
-      row.context.colWidth.should.equal(5);
-    });
-
-    it('shouldComponentUpdate should not break for observeGrid', () => {
-      const log = [];
-
-      const MyComponent = observeGrid(React.createClass({
-        propTypes: { colWidth: React.PropTypes.number },
-
+      const Optimized = React.createClass({
+        shouldComponentUpdate() {return false},
         render() {
-          log.push(this.props.colWidth);
-          return <div/>;
+          return (
+            <Row>
+              <Column width="1/2">
+                <Observer/>
+              </Column>
+            </Row>
+          );
         }
-      }));
-
-      const Block = React.createClass({
-        shouldComponentUpdate() { return false; },
-        render() { return <MyComponent/>; }
       });
 
       const grid = render((
         <Grid {... options}>
-          <Block/>
+          <Optimized/>
         </Grid>
       ), rootNode);
 
-      const listener = eventlistener.add.firstCall.args[2];
-      setWindowWidth(100);
+      const observer = findRenderedComponentWithType(grid, Module);
+
+      // before update
+      observer.props.should.eql({
+        breakpoint: 15,
+        colMaxPixelWidth: 730,
+        colMinPixelWidth: 730,
+        colWidth: 7.5,
+      });
+
+      // change to smaller breakpoint
+      const listener = eventlistener.add.firstCall.args[2]
+      setWindowWidth(1000);
       listener();
 
-      log.should.eql([10, 5]);
-    });
+      observer.props.should.eql({
+        breakpoint: 10,
+        colMaxPixelWidth: 480,
+        colMinPixelWidth: 480,
+        colWidth: 5,
+      });
 
-    it('shouldComponentUpdate should not break for parent (not owner)', () => {
-      // const Block = React.createClass({
-      //   propTypes: {
-      //     children: React.PropTypes.any
-      //   },
+      // change window back to make sure it works both directions
+      setWindowWidth(2000);
+      listener();
 
-      //   shouldComponentUpdate() {
-      //     return false;
-      //   },
-
-      //   render() {
-      //     return this.props.children;
-      //   }
-      // });
-
-      // const grid = render((
-      //   <Grid {... options}>
-      //     <Block>
-      //       <Column at10-offset={5} width={5}/>
-      //     </Block>
-      //   </Grid>
-      // ), rootNode);
-
-      // const column = scryRenderedComponentsWithType(grid, Column)[1];
-
-      // // console.log(column.context)
-
-      // const listener = eventlistener.add.firstCall.args[2];
-      // setWindowWidth(100);
-      // listener();
-
-      // console.log('breakpoint after:', column.context.breakpoint)
+      // after 2nd update
+      observer.props.should.eql({
+        breakpoint: 15,
+        colMaxPixelWidth: 730,
+        colMinPixelWidth: 730,
+        colWidth: 7.5,
+      });
     });
   });
 });

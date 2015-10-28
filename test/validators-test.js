@@ -9,23 +9,13 @@ describe('Grid Type Validation', () => {
     Types = proxyquire('../src/util/validators', {});
   });
 
-  it('gridUnitFraction', () => {
-    (Types.gridUnitFraction({prop: '10/300'}, 'prop') instanceof Error).should.be.false();
-    (Types.gridUnitFraction({prop: 'a/1'}, 'prop') instanceof Error).should.be.true();
-  });
-
-  it('gridUnitInteger', () => {
-    (Types.gridUnitInteger({prop: 1}, 'prop') instanceof Error).should.be.false();
-    (Types.gridUnitInteger({prop: 1/4}, 'prop') instanceof Error).should.be.true();
-  });
-
-  it('gridUnit', () => {
-    (Types.gridUnit({prop: '10/300'}, 'prop') instanceof Error).should.be.false();
-    (Types.gridUnit({prop: 'a/1'}, 'prop') instanceof Error).should.be.true();
-    (Types.gridUnit({prop: 1}, 'prop') instanceof Error).should.be.false();
-    (Types.gridUnit({prop: 1/4}, 'prop') instanceof Error).should.be.true();
-    (Types.gridUnit({prop: {}}, 'prop') instanceof Error).should.be.true();
-    (Types.gridUnit({a: null}, 'prop') instanceof Error).should.be.false();
+  it('gridFraction', () => {
+    (Types.gridFraction({prop: '10/300'}, 'prop') instanceof Error).should.be.false();
+    (Types.gridFraction({prop: 'a/1'}, 'prop') instanceof Error).should.be.true();
+    (Types.gridFraction({prop: 1}, 'prop') instanceof Error).should.be.true();
+    (Types.gridFraction({prop: 1/4}, 'prop') instanceof Error).should.be.true();
+    (Types.gridFraction({prop: {}}, 'prop') instanceof Error).should.be.true();
+    (Types.gridFraction({a: null}, 'prop') instanceof Error).should.be.false();
   });
 
   it('validBreakpoint', () => {
