@@ -11,6 +11,15 @@ import gridContext from './util/context';
 import getThreshold from './util/getThreshold';
 import {validBreakpoint, validBreakpoints} from './util/validators';
 
+/* 
+ * A patch: 
+ * shouldComponentUpdate() can block context updates
+ * so we need to add a fallback method for
+ * updating interested components.
+ * When React offers a better way, this should be removed
+ */
+import {updateObservers} from './util/handleStaleContext';
+
 export default class Grid extends Component {
   static propTypes = {
     breakpoints: validBreakpoints,
@@ -36,6 +45,7 @@ export default class Grid extends Component {
   constructor(props) {
     super(props);
     this.syncGrid = this.syncGrid.bind(this);
+    this.updateGrid = this.updateGrid.bind(this);
   }
 
   state = {
@@ -98,6 +108,7 @@ export default class Grid extends Component {
 
   updateGrid(b) {
     this.setState({breakpoint: b});
+    updateObservers(b); // This is for the patch
   }
 
   render() {

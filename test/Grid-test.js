@@ -649,10 +649,6 @@ describe('Grid', () => {
 
       // console.log('breakpoint after:', column.context.breakpoint)
     });
-
-    it.only('playing', () => {
-      console.log(Object.observe);
-    });
   });
 });
 

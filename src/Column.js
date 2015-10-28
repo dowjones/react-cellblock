@@ -10,6 +10,18 @@ import gridContext from './util/context';
 import classnames from 'classnames';
 import cellblock from 'cellblock';
 
+
+/* 
+ * A patch: 
+ * shouldComponentUpdate() can block context updates
+ * so we need to add a fallback method for
+ * updating interested components.
+ * When React offers a better way, this should be removed
+ */
+import {forceContext} from './util/handleStaleContext';
+
+@forceContext // apply patch
+
 export default class Column extends Component {
   static propTypes = {
     children: PropTypes.any,
