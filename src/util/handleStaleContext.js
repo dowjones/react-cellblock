@@ -7,12 +7,12 @@ let observerId = 0;
 const observers = {};
 
 export function forceContext(Component) {
-  const {
-    componentDidMount, componentWillUnmount
-  } = Component.prototype;
+  // const {
+  //   componentDidMount, componentWillUnmount
+  // } = Component.prototype;
 
   Component.prototype.componentDidMount = function() {
-    if (componentDidMount) componentDidMount.apply(this, arguments);
+    // if (componentDidMount) componentDidMount.apply(this, arguments);
     if (this.props.isRoot) return;
 
     this.observerId = observerId++;
@@ -28,7 +28,7 @@ export function forceContext(Component) {
   }
 
   Component.prototype.componentWillUnmount = function() {
-    if (componentWillUnmount) componentWillUnmount.apply(this, arguments);
+    // if (componentWillUnmount) componentWillUnmount.apply(this, arguments);
     delete observers[this.observerId];
   }
 
