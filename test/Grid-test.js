@@ -510,6 +510,64 @@ describe('Grid', () => {
         colWidth: 7.5,
       });
     });
+
+    it.only('should get around shouldUpdate when the parent blocks', () => {
+      setWindowWidth(2000);
+
+      const Blocker = React.createClass({
+        propTypes: {children: PropTypes.any},
+        shouldComponentUpdate() {return false},
+        render() {
+          return <div>{this.props.children}</div>;
+        }
+      });
+
+      const grid = render((
+        <Grid {... options}>
+          <Blocker>
+            <Row>
+              <Column width="1/2">
+                <Observer/>
+              </Column>
+            </Row>
+          </Blocker>
+        </Grid>
+      ), rootNode);
+
+      const observer = findRenderedComponentWithType(grid, Module);
+
+      // before update
+      observer.props.should.eql({
+        breakpoint: 15,
+        colMaxPixelWidth: 730,
+        colMinPixelWidth: 730,
+        colWidth: 7.5,
+      });
+
+      // change to smaller breakpoint
+      const listener = eventlistener.add.firstCall.args[2]
+      setWindowWidth(1000);
+      listener();
+
+      observer.props.should.eql({
+        breakpoint: 10,
+        colMaxPixelWidth: 480,
+        colMinPixelWidth: 480,
+        colWidth: 5,
+      });
+
+      // change window back to make sure it works both directions
+      setWindowWidth(2000);
+      listener();
+
+      // after 2nd update
+      observer.props.should.eql({
+        breakpoint: 15,
+        colMaxPixelWidth: 730,
+        colMinPixelWidth: 730,
+        colWidth: 7.5,
+      });
+    });
   });
 });
 
