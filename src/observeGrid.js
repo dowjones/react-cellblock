@@ -6,8 +6,8 @@
 import React, {Component} from 'react';
 import gridContext from './util/context';
 
-/* 
- * A patch: 
+/*
+ * A patch:
  * shouldComponentUpdate() can block context updates
  * so we need to add a fallback method for
  * updating interested components.
@@ -32,8 +32,8 @@ export default function observeGrid(DumbComponent) {
       return (<DumbComponent
         breakpoint={this.context.breakpoint}
         colWidth={cellblockColumn.getWidth(v[0], 0)}
-        colMinPixelWidth={cellblockColumn.getWidth((v[0] * c) + (v[0] * g), g)}
-        colMaxPixelWidth={cellblockColumn.getWidth((v[1] * c) + (v[1] * g), g)}
+        colMinPixelWidth={cellblockColumn.getWidth((v[0] * c) + (v[0] * g) - g, g)}
+        colMaxPixelWidth={cellblockColumn.getWidth((v[1] * c) + (v[1] * g) - g, g)}
         {... this.props}
       />);
     }
