@@ -1,4 +1,3 @@
-
 /*
  * This is a temporary fix for when shouldComponentUpdate()
  * makes the context stale.
@@ -14,29 +13,30 @@ export function forceContext(Component) {
   } = Component.prototype;
 
   Component.prototype.componentDidMount = function() {
+    if (componentDidMount) componentDidMount.apply(this, arguments);
+
     this.observerId = observerId++;
+    let breakpoint;
 
     observers[this.observerId] = function (newBreak) {
-      // const breakpoint = this.props.isRoot ? 
-      //   this.props.breakpoint : this.context.cellblockBreakpoint;
+      if (!breakpoint) breakpoint = getBreakpoint(this);
 
-      // if (breakpoint !== newBreak) {
-      //   console.log('somethings up!'); // WHY DOESNT THIS CHECK WORK?
-      // }
-
-      this.forceUpdate();
-
+      /*
+       * If the context appears stale
+       * force an update
+       */
+      if (breakpoint !== newBreak) {
+        this.forceUpdate();
+        breakpoint = newBreak;
+      } else {
+        breakpoint = null;
+      }
     }.bind(this);
-
-    if (componentDidMount) componentDidMount.apply(this, arguments);
   }
 
   Component.prototype.componentWillUnmount = function() {
-    delete observers[this.observerId];
-
-    // console.log('removed observer');
-
     if (componentWillUnmount) componentWillUnmount.apply(this, arguments);
+    delete observers[this.observerId];
   }
 
   return Component;
@@ -46,4 +46,8 @@ export function updateObservers(newBreakpoint) {
   for (let o in observers) {
     observers[o](newBreakpoint);
   }
+}
+
+function getBreakpoint(inst) {
+  return inst.props.isRoot ? inst.props.breakpoint : inst.context.cellblockBreakpoint;
 }
