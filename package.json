@@ -19,7 +19,7 @@
     "prepublish": "babel --loose all src --out-dir lib",
     "test": "sh -c 'npm run lint && npm run test-cover && npm run test-cover-check'",
     "test-cover": "istanbul cover _mocha -- -r should -t 600 -r test/_helpers/boot $(find test ./test -type f -name '*-test.js') --compilers js:babel/register",
-    "test-cover-check": "istanbul check-coverage --statements 100 --functions 100 --branches 100 --lines 100",
+    "test-cover-check": "istanbul check-coverage --statements 100 --functions 100 --branches 95 --lines 100",
     "test-watch": "mocha -G -w -R min -t 600 -r test/_helpers/boot $(find test ./test -type f -name '*-test.js')",
     "start": "webpack-dev-server --hot --inline",
     "build-dev": "webpack -d"

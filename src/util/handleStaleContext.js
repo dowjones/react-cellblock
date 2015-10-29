@@ -8,11 +8,12 @@ const observers = {};
 
 export function forceContext(Component) {
   const {
-    componentDidMount, componentWillUnmount
+    // componentDidMount, // nothing uses this at the moment
+    componentWillUnmount
   } = Component.prototype;
 
   Component.prototype.componentDidMount = function() {
-    if (componentDidMount) componentDidMount.apply(this, arguments);
+    // if (componentDidMount) componentDidMount.apply(this, arguments); // nothing uses this at the moment
     if (this.props.isRoot) return;
 
     this.observerId = observerId++;
