@@ -1,7 +1,7 @@
 /*
  * This is a temporary fix for when shouldComponentUpdate()
  * makes the context stale.
- * For reference check out react routers issue https://github.com/facebook/react/issues/2517
+ * For reference check out react issue https://github.com/facebook/react/issues/2517
  */
 let observerId = 0;
 const observers = {};
