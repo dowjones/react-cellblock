@@ -66,12 +66,12 @@ const Layout = () => (
 
 Here is a custom component that displays a “small view” when it is in a small column and a “big view” when it is in a big column.
 ```js
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import {observeGrid} from 'react-cellblock';
 
-class YourComponent extends Component {
+class YourComponent extends React.Component {
   static propTypes = {
-    colWidth: PropTypes.number // How wide is this component in “grid units”?
+    colWidth: React.PropTypes.number // How wide is this component in “grid units”?
   };
 
   render() {
@@ -83,10 +83,12 @@ class YourComponent extends Component {
 const YourNewResponsiveComponent = observeGrid(YourComponent);
 
 // then inside some other component or jsx
-<Column width={3}>
+// on the "12 unit breakpoint"
+
+<Column width="1/4"> // 3 units wide on 12 unit breakpoint
   <YourNewResponsiveComponent/> // this will render “Small View”
 </Column>
-<Column width={9}>
+<Column width="3/4"> // 9 units wide on 12 unit breakpoint
   <YourNewResponsiveComponent/> // this will render “Big View”
 </Column>
 ```
@@ -249,7 +251,7 @@ className | `String` | `undefined` | A custom class name.
 
 ## Column
 
-The `<Column/>` component divides rows into regions. You specify the width of a columns as either a fraction of its parent or as a number of grid units.
+The `<Column/>` component divides rows into regions. Even though you configure the grid in terms of units (an 8 unit view or 12 unit view) You specify the width of a columns as a fraction of its parent. This keeps nesting from becoming brittle. In this sense, the column nesting is similar to bootstrap and foundation.
 
 Here is an example of using fractions:
 ```js
@@ -268,28 +270,33 @@ Here is an example of using fractions:
 ```
 Notice that the fractions only need to make sense within each row. You can use quarters in one row and thirds in the next, whatever makes sense for that section of the layout.
 
-And here is an example using absolute grid units:
+If you want to keep the units you are dealing with in mind, it can be helpful to express your fractions using those units as denominators. Here is an example of what that might look like:
 ```js
-<Column width={8}>
-  <Row>
-    <Column width={3}>I am three units</Column>
-    <Column width={5}/>I am five units</Column>
-  </Row>
-</Column>
-```
-Notice that with units you have to make sure the numbers add up correctly. 3 and 5 only work because the parent column happens to be 8 units wide. For this reason fractions tend to be more useful for complex layouts (even if the visual intention is to adhere strictly to unit widths).
-
-You could express the example above as:
-```js
-<Column width={8}>
   <Row>
     <Column width="3/8"}>I am three units</Column>
-    <Column width="5/8"/>I am five units</Column>
+    <Column width="5/8"/>
+      I am five units
+      <Row>
+        <Column width="3/5">
+          I am three of the five units above
+        Ccolumn>
+        <Column width="3/5">
+          I am two of the five units above
+        Ccolumn>
+      </Row>
+    </Column>
   </Row>
-</Column>
 ```
 
-So why bother with grid units at all?
+##### Column Properties
+
+Property | Type | Default | Description
+:------- | :--- | :------ | :----------
+width | `FractionString` | `undefined` | The width of the column expressed as a fraction string. For example: as `"1/3"` or `"3/7"`.
+offset | `FractionString` | `undefined` | The left offset of the Column.
+className | `String` | `undefined` | A custom class name.
+
+#### So why bother with grid units at all?
 
 Well, take a look at this example:
 ```js
@@ -314,15 +321,7 @@ In the example above, If all you know about is fractions, every column only know
 
 Grid units give you a convention to measure against. A convention that is __constant__ across all breakpoints and no matter how deeply you nest your columns. So while you may be thinking in fractions while you create your layout. Your components can still think in terms of grid units when they decide how to display.
 
-##### Column Properties
-
-Property | Type | Default | Description
-:------- | :--- | :------ | :----------
-width | `FractionString/Integer` | `undefined` | The width of the column, expressed as grid units or as a fraction. For example: `9` grid units, or fraction strings such as `"1/3"` or `"3/7"`.
-offset | `FractionString/Integer` | `undefined` | The left offset of the Column.
-className | `String` | `undefined` | A custom class name.
-
-> _Note: Using grid units inside fractional columns does not make sense. So if you start using fractional columns, you should stop using unit-based columns._
+Your components can access their absoulte size in grid units by using `observeGrid()`...
 
 ## observeGrid
 
@@ -363,8 +362,6 @@ render() {
 ```
 
 This makes more sense, because no matter what size column your component is in it will render the correct view. (even if the column is 3.333 grid units wide)
-
-> _Note: Under the hood, `observeGrid` accesses react’s context and provides the grid context as properties to your component. Nothing prevents you from accessing the grid context values directly, observeGrid is just an easier way to do so. It also keeps your code away from implementation specific details_
 
 ## License
 
