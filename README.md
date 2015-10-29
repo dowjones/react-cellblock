@@ -270,7 +270,7 @@ Here is an example of using fractions:
 ```
 Notice that the fractions only need to make sense within each row. You can use quarters in one row and thirds in the next, whatever makes sense for that section of the layout.
 
-If you want to keep the units you are dealing with in mind, it can be helpful to express your fractions using those units as denominators. You could express the example above as:
+If you want to keep the units you are dealing with in mind, it can be helpful to express your fractions using those units as denominators. Here is an example of what that might look like:
 ```js
   <Row>
     <Column width="3/8"}>I am three units</Column>
