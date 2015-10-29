@@ -83,10 +83,12 @@ class YourComponent extends React.Component {
 const YourNewResponsiveComponent = observeGrid(YourComponent);
 
 // then inside some other component or jsx
-<Column width={3}>
+// on the "12 unit breakpoint"
+
+<Column width="1/4"> // 3 units wide on 12 unit breakpoint
   <YourNewResponsiveComponent/> // this will render “Small View”
 </Column>
-<Column width={9}>
+<Column width="3/4"> // 9 units wide on 12 unit breakpoint
   <YourNewResponsiveComponent/> // this will render “Big View”
 </Column>
 ```
