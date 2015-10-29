@@ -66,12 +66,12 @@ const Layout = () => (
 
 Here is a custom component that displays a “small view” when it is in a small column and a “big view” when it is in a big column.
 ```js
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import {observeGrid} from 'react-cellblock';
 
-class YourComponent extends Component {
+class YourComponent extends React.Component {
   static propTypes = {
-    colWidth: PropTypes.number // How wide is this component in “grid units”?
+    colWidth: React.PropTypes.number // How wide is this component in “grid units”?
   };
 
   render() {
