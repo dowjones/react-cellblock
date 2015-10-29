@@ -13,6 +13,7 @@
     "responsive"
   ],
   "author": "gregoryskiano@gmail.com",
+  "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint src test",
