@@ -296,8 +296,6 @@ width | `FractionString` | `undefined` | The width of the column expressed as a 
 offset | `FractionString` | `undefined` | The left offset of the Column.
 className | `String` | `undefined` | A custom class name.
 
-> _Note: Using grid units inside fractional columns does not make sense. So if you start using fractional columns, you should stop using unit-based columns._
-
 #### So why bother with grid units at all?
 
 Well, take a look at this example:
