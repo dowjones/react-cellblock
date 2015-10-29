@@ -363,8 +363,6 @@ render() {
 
 This makes more sense, because no matter what size column your component is in it will render the correct view. (even if the column is 3.333 grid units wide)
 
-> _Note: Under the hood, `observeGrid` accesses react’s context and provides the grid context as properties to your component. Nothing prevents you from accessing the grid context values directly, observeGrid is just an easier way to do so. It also keeps your code away from implementation specific details_
-
 ## License
 
 [MIT](/LICENSE)
