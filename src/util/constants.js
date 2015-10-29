@@ -1,4 +1,3 @@
-
 export default {
   ROW: 'cb-row',
   COL: 'cb-col',

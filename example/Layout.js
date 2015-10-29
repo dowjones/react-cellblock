@@ -5,6 +5,9 @@ import examples from './examples';
 import Banner from './modules/Banner';
 import Nav from './modules/Nav';
 
+import Optimized from './modules/Optimized';
+import Blocker from './modules/Blocker';
+
 const DEFAULT = Object.keys(examples)[0];
 
 export default React.createClass({
@@ -30,12 +33,15 @@ export default React.createClass({
     const Example = examples[this.state.example];
     return (
       <Grid onChange={this.props.onChange}>
-        <Banner className="header">Cellblock</Banner>
+        <Blocker>
+          <Banner className="header">Cellblock</Banner>
+        </Blocker>
         <Nav
           examples={Object.keys(examples)}
           changeExample={this.changeExample}
           activeExample={this.state.example}/>
         <Example/>
+        <Optimized/>
         <Banner className="footer">Footer</Banner>
       </Grid>
     );

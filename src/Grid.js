@@ -1,4 +1,7 @@
-
+/*
+ * The top level Grid component
+ * Only used once per page
+ */
 import React, {Component, PropTypes} from 'react';
 import Column from './Column';
 import Style from './util/Style';
@@ -6,6 +9,16 @@ import eventListener from 'eventlistener';
 import gridContext from './util/context';
 import getThreshold from './util/getThreshold';
 import {validBreakpoint, validBreakpoints} from './util/validators';
+
+/*
+ * A patch:
+ * shouldComponentUpdate() can block context updates
+ * so we need to add a fallback method for
+ * updating interested components.
+ * When React offers a better way, this should be removed
+ */
+let breakCount = 0; // everytime grid changes, increment so we can check for staleness
+import {updateObservers} from './util/handleStaleContext';
 
 export default class Grid extends Component {
   static propTypes = {
@@ -32,17 +45,31 @@ export default class Grid extends Component {
   constructor(props) {
     super(props);
     this.syncGrid = this.syncGrid.bind(this);
+    this.updateGrid = this.updateGrid.bind(this);
   }
 
   state = {
-    maxColWidth: this.props.columnWidth,
     breakpoint: this.props.initialBreakpoint
   };
 
   getChildContext() {
+    const {props} = this;
+
+    const getViewport = function () {
+      return [this.state.breakpoint, this.getMaxBreatPoint(this.state.breakpoint)];
+    }.bind(this);
+
     return {
-      colUnitWidth: this.props.columnWidth,
-      gutterWidth: this.props.gutterWidth
+      cellblockGet(key) {
+        switch (key) {
+          case 'gutterWidth':
+            return props.gutterWidth;
+          case 'columnWidth':
+            return props.columnWidth;
+          case 'viewport':
+            return getViewport();
+        }
+      }
     };
   }
 
@@ -53,8 +80,8 @@ export default class Grid extends Component {
 
     this.setState({
       breakpoint: breakpoint,
-      maxColWidth: this.getMaxColWidth(breakpoint),
-      thresholds: thresholds
+      thresholds: thresholds,
+      breakCount: 0, // for patch
     });
   }
 
@@ -67,21 +94,15 @@ export default class Grid extends Component {
     eventListener.remove(window, 'resize', this.syncGrid);
   }
 
-  getMaxColWidth(units) {
-    const {breakpoints, columnWidth, gutterWidth, flexible} = this.props;
+  getMaxBreatPoint(minBreakpoint) {
+    const {breakpoints, flexible} = this.props;
 
     if (!flexible ||
-      (Array.isArray(flexible) && flexible.indexOf(units) === -1)) {
-      return columnWidth;
-    }
-
-    const nextPoint = breakpoints[breakpoints.indexOf(units) + 1];
-
-    if (!nextPoint) {
-      return Infinity;
+      (Array.isArray(flexible) && flexible.indexOf(minBreakpoint) === -1)) {
+      return minBreakpoint;
     } else {
-      const largeTotal = (nextPoint * columnWidth) + ((nextPoint - 1) * gutterWidth);
-      return (largeTotal - ((units - 1) * gutterWidth)) / units;
+      const nextPoint = breakpoints[breakpoints.indexOf(minBreakpoint) + 1];
+      return nextPoint || breakpoints[breakpoints.length - 1];
     }
   }
 
@@ -93,21 +114,24 @@ export default class Grid extends Component {
   }
 
   updateGrid(b) {
+    breakCount = breakCount += 1; // This is for the patch
+
     this.setState({
       breakpoint: b,
-      maxColWidth: this.getMaxColWidth(b)
+      breakCount: breakCount // This is for the patch
     });
+
+    updateObservers(breakCount); // This is for the patch
   }
 
   render() {
+    const {breakpoint, breakCount} = this.state;
+    const {className, gutterWidth, children} = this.props;
+    const breakPointRange = [breakpoint, this.getMaxBreatPoint(breakpoint)];
     return (
-      <Column
-        isRoot
-        width={this.state.breakpoint}
-        maxColWidth={this.state.maxColWidth}
-        className={this.props.className}>
-        <Style gutter={this.props.gutterWidth}/>
-        {this.props.children}
+      <Column isRoot viewport={breakPointRange} breakCount={breakCount} className={className}>
+        <Style gutter={gutterWidth}/>
+        {children}
       </Column>
     );
   }

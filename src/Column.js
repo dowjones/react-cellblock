@@ -1,52 +1,61 @@
-
+/*
+ * The Column component
+ * divides Rows into fractions
+ */
 import React, {Component, PropTypes} from 'react';
-import classnames from 'classnames';
-import gridContext from './util/context';
-import {isInteger, isFraction} from './util/types';
-import {gridUnit} from './util/validators';
+import {gridFraction} from './util/validators';
 import {COL, GRID} from './util/constants';
-import {
- fractionToDecimal,
- decimalToPercent,
- numberToPercent,
- stringToPercent,
- computeSpan,
- computeMinWidth,
- computeMaxWidth,
- computeWidth
-} from './util/colMath';
+import gridContext from './util/context';
+import classnames from 'classnames';
+import cellblock from 'cellblock';
 
+/*
+ * A patch:
+ * shouldComponentUpdate() can block context updates
+ * so we need to add a fallback method for
+ * updating interested components.
+ * When React offers a better way, this should be removed
+ */
+import {forceContext} from './util/handleStaleContext';
+
+@forceContext // apply patch
 export default class Column extends Component {
   static propTypes = {
+    breakCount: PropTypes.number,
     children: PropTypes.any,
     className: PropTypes.string,
     isRoot: PropTypes.bool,
-    maxColWidth: PropTypes.number,
-    offset: gridUnit,
-    width: gridUnit
+    offset: gridFraction,
+    viewport: PropTypes.array,
+    width: gridFraction
   };
 
   static contextTypes = gridContext;
-
   static childContextTypes = gridContext;
 
   getChildContext() {
-    const rawWidth = this.getPropForBreak('width') || this.context.colWidth;
-    const maxColWidth = this.props.isRoot ? this.props.maxColWidth : this.context.maxColWidth;
-
     return {
-      maxColWidth: maxColWidth,
-      breakpoint: this.props.isRoot ? this.props.width : this.context.breakpoint,
-      colWidth: computeSpan(rawWidth, this.context),
-      colMinPixelWidth: computeMinWidth(rawWidth, this.context),
-      colMaxPixelWidth: computeMaxWidth(rawWidth, this.context, maxColWidth)
+      cellblockColumn: this.grid,
+      cellblockBreak: this.props.breakCount || this.context.cellblockBreak
     };
   }
 
-  getPropForBreak(prop) {
-    if (this.props.isRoot) return this.props[prop];
-    const breakProp = ['at' + this.context.breakpoint, prop].join('-');
-    return typeof this.props[breakProp] === 'undefined' ? this.props[prop] : this.props[breakProp];
+  componentWillMount() {
+    const {cellblockColumn} = this.context;
+
+    if (cellblockColumn) {
+      this.grid = cellblock(cellblockColumn, this.props.width);
+    } else {
+      this.grid = cellblock();
+    }
+  }
+
+  componentWillUpdate({width}) {
+    this.grid.setWidth(width);
+  }
+
+  componentWillUnmount() {
+    this.grid.detach();
   }
 
   render() {
@@ -58,22 +67,13 @@ export default class Column extends Component {
       );
     }
 
-    const style = {};
-    const width = this.getPropForBreak('width');
-    const offset = this.getPropForBreak('offset');
     const className = classnames(COL, this.props.className);
+    const width = this.grid.getFraction();
+    const {offset}= this.props;
+    const style = {};
 
-    if (isFraction(width)) {
-      style.width = stringToPercent(width);
-    } else if (isInteger(width)) {
-      style.width = numberToPercent(width, this.context.colWidth);
-    }
-
-    if (isFraction(offset)) {
-      style.marginLeft = stringToPercent(offset);
-    } else if (isInteger(offset)) {
-      style.marginLeft = numberToPercent(offset, this.context.colWidth);
-    }
+    if (offset) style.marginLeft = fractionToPercent(offset);
+    style.width = decimalToPercent(width[0] / width[1]);
 
     return (
       <div className={className} style={style}>
@@ -83,3 +83,11 @@ export default class Column extends Component {
   }
 }
 
+function fractionToPercent(v) {
+  const f = v.split('/');
+  return decimalToPercent(parseInt(f[0]) / parseInt(f[1]));
+}
+
+function decimalToPercent(v) {
+  return parseFloat((v * 100).toFixed(4)) + '%';
+}

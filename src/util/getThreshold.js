@@ -1,4 +1,3 @@
-
 export default function getThreshold(thresholds) {
   /* eslint-disable no-empty */
   const width = getWindowWidth();
