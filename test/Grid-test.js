@@ -56,7 +56,7 @@ describe('Grid', () => {
     });
 
     it('should clean up event listener', () => {
-      render((<Grid/>), rootNode);
+      render((<Grid><Row><Column/></Row></Grid>), rootNode);
       Dom.unmountComponentAtNode(rootNode);
       eventlistener.remove.calledWith(window, 'resize').should.be.true();
     });
