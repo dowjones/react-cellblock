@@ -6,7 +6,7 @@ React Cellblock makes it easy to build components that respond not only to a gri
 
 [Check out the demo page.](http://dowjones.github.io/react-cellblock/)
 
-Cellblock shares some conventions with popular grids, such as Bootstrap and Foundation, but it combines the benefits of fractional grids with the benefits of grids that use fixed units. 
+Cellblock shares some conventions with popular grids, such as Bootstrap and Foundation, but it combines the benefits of fractional grids with the benefits of grids that use fixed units.
 
 [Why is this helpful?](docs/why-cellblock.md)
 
@@ -31,6 +31,7 @@ $ npm install
 $ npm start
 ```
 
+Open http://localhost:8080 and start playing around.
 
 ## What’s included
 
@@ -113,13 +114,13 @@ The `<Grid/>` component provides a context and configuration for all other Cellb
 
 When you set up a Cellblock grid, you choose how wide you want your columns and gutters to be and you choose how many columns you want to fit in each breakpoint (you can have as many breakpoints as you need).
 
-For example, if you want to have two breakpoints that contain 4 and 8 columns respectively you would do this: 
+For example, if you want to have two breakpoints that contain 4 and 8 columns respectively you would do this:
 ```js
 <Grid breakpoints={[4,8]}/>
 ```
 As a result you would have a “4 unit” breakpoint and an “8 unit” breakpoint. The 8 unit breakpoint would trigger as soon as the screen is wide enough to fit 8 columns.
 
-If you want the grid to be flexible at all breakpoints: 
+If you want the grid to be flexible at all breakpoints:
 ```js
 <Grid breakpoints={[4,8]} flexible={true}/>
 ```
@@ -143,7 +144,7 @@ Here is what the default configuration looks like:
 
 ##### Grid Properties
 
-Property | Type | Default | Description 
+Property | Type | Default | Description
 :------- | :--- | :------ | :----------
 columnWidth | `Number` | `60`  | The width (in pixels) of each column unit. On flexible breakpoints this will be the minimum width.
 gutterWidth | `Number` | `20` | The width (in pixels) of the gutter between Columns.
