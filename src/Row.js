@@ -21,7 +21,8 @@ import {forceContext} from './util/handleStaleContext';
 export default class Row extends Component {
   static propTypes = {
     children: PropTypes.any,
-    className: PropTypes.string
+    className: PropTypes.string,
+    style: PropTypes.object
   };
 
   static contextTypes = gridContext;
@@ -44,7 +45,7 @@ export default class Row extends Component {
     };
 
     return (
-      <div className={classnames(ROW, this.props.className)} style={style}>
+        <div className={classnames(ROW, this.props.className)} style={{ ...style, ...this.props.style }}>
         {this.props.children}
       </div>
     );

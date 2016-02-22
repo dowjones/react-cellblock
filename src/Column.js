@@ -26,6 +26,7 @@ export default class Column extends Component {
     className: PropTypes.string,
     isRoot: PropTypes.bool,
     offset: gridFraction,
+    style: PropTypes.object,
     viewport: PropTypes.array,
     width: gridFraction
   };
@@ -76,7 +77,7 @@ export default class Column extends Component {
     style.width = decimalToPercent(width[0] / width[1]);
 
     return (
-      <div className={className} style={style}>
+      <div className={className} style={{ ...style, ...this.props.style }}>
         {this.props.children}
       </div>
     );
