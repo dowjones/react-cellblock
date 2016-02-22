@@ -29,7 +29,8 @@ export default class Grid extends Component {
     flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
     gutterWidth: PropTypes.number,
     initialBreakpoint: validBreakpoint,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    style: PropTypes.object
   };
 
   static childContextTypes = gridContext;
@@ -126,10 +127,10 @@ export default class Grid extends Component {
 
   render() {
     const {breakpoint, breakCount} = this.state;
-    const {className, gutterWidth, children} = this.props;
+    const {className, gutterWidth, children, style} = this.props;
     const breakPointRange = [breakpoint, this.getMaxBreatPoint(breakpoint)];
     return (
-      <Column isRoot viewport={breakPointRange} breakCount={breakCount} className={className}>
+        <Column isRoot viewport={breakPointRange} breakCount={breakCount} className={className} style={style}>
         <Style gutter={gutterWidth}/>
         {children}
       </Column>
