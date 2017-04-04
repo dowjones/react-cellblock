@@ -191,17 +191,30 @@ describe('Grid', () => {
     let testgrid;
 
     beforeEach(() => {
+      const smallerGutterOptions = Object.assign(options, {
+        columnWidth: options.columnWidth + 5,
+        gutterWidth: options.gutterWidth - 5
+      });
+
       testgrid = render((
         <Grid {... options} className="a">
           <Row className="b">
             <Column className="c"/>
+          </Row>
+          <Row>
+            <Grid {... smallerGutterOptions} className="d">
+              <Row className="e">
+                <Column className="f"/>
+              </Row>
+            </Grid>
           </Row>
         </Grid>
       ), rootNode);
     });
 
     it('should apply grid root class correctly', () => {
-      findDOMNode(testgrid).className.should.eql('cb-grid a');
+      findRenderedDOMComponentWithClass(testgrid, 'a').className.should.eql('cb-grid a cellblock-grid-0');
+      findRenderedDOMComponentWithClass(testgrid, 'd').className.should.eql('cb-grid d cellblock-grid-1');
     });
 
     it('should apply row class correctly', () => {

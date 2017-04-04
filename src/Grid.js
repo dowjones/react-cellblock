@@ -18,6 +18,7 @@ import {validBreakpoint, validBreakpoints} from './util/validators';
  * When React offers a better way, this should be removed
  */
 let breakCount = 0; // everytime grid changes, increment so we can check for staleness
+let gridId = 0; // every grid gets it's own id
 import {updateObservers} from './util/handleStaleContext';
 
 export default class Grid extends Component {
@@ -46,6 +47,7 @@ export default class Grid extends Component {
     super(props);
     this.syncGrid = this.syncGrid.bind(this);
     this.updateGrid = this.updateGrid.bind(this);
+    this.gridId = gridId++;
   }
 
   state = {
@@ -126,11 +128,13 @@ export default class Grid extends Component {
 
   render() {
     const {breakpoint, breakCount} = this.state;
-    const {className, gutterWidth, children} = this.props;
+    const {className='', gutterWidth, children} = this.props;
+    const gridClass = `cellblock-grid-${this.gridId}`;
+    const uniqueClass = `${className} ${gridClass}`;
     const breakPointRange = [breakpoint, this.getMaxBreatPoint(breakpoint)];
     return (
-      <Column isRoot viewport={breakPointRange} breakCount={breakCount} className={className}>
-        <Style gutter={gutterWidth}/>
+      <Column isRoot viewport={breakPointRange} breakCount={breakCount} className={uniqueClass}>
+        <Style ctx={gridClass} gutter={gutterWidth}/>
         {children}
       </Column>
     );
