@@ -12,15 +12,15 @@ module.exports = {
     publicPath: '/assets/'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         exclude: /(node_modules)/,
-        loaders: ['babel?optional[]=runtime&cacheDirectory']
+        use: ['babel-loader?optional[]=runtime&cacheDirectory']
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract('style', 'css!sass')
+        use: ExtractTextPlugin.extract({ fallback: 'style-loader', use: 'css-loader' })
       }
     ]
   },
