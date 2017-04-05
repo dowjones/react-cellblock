@@ -20,37 +20,40 @@ import {validBreakpoint, validBreakpoints} from './util/validators';
 let breakCount = 0; // everytime grid changes, increment so we can check for staleness
 import {updateObservers} from './util/handleStaleContext';
 
-export default class Grid extends Component {
-  static propTypes = {
-    breakpoints: validBreakpoints,
-    children: PropTypes.any,
-    className: PropTypes.string,
-    columnWidth: PropTypes.number,
-    flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-    gutterWidth: PropTypes.number,
-    initialBreakpoint: validBreakpoint,
-    onChange: PropTypes.func
-  };
+class Grid extends Component {
+  static get propTypes() {
+    return {
+      breakpoints: validBreakpoints,
+      children: PropTypes.any,
+      className: PropTypes.string,
+      columnWidth: PropTypes.number,
+      flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+      gutterWidth: PropTypes.number,
+      initialBreakpoint: validBreakpoint,
+      onChange: PropTypes.func
+    };
+  }
 
-  static childContextTypes = gridContext;
-
-  static defaultProps = {
-    onChange() {},
-    columnWidth: 60,
-    gutterWidth: 20,
-    breakpoints: [4, 8, 12, 16],
-    flexible: [4]
-  };
+  static get defaultProps() {
+    return {
+      onChange() {},
+      columnWidth: 60,
+      gutterWidth: 20,
+      breakpoints: [4, 8, 12, 16],
+      flexible: [4]
+    };
+  }
 
   constructor(props) {
     super(props);
     this.syncGrid = this.syncGrid.bind(this);
     this.updateGrid = this.updateGrid.bind(this);
-  }
+    this._eventListener = Grid._eventListener || eventListener;
 
-  state = {
-    breakpoint: this.props.initialBreakpoint
-  };
+    this.state = {
+      breakpoint: this.props.initialBreakpoint
+    };
+  }
 
   getChildContext() {
     const {props} = this;
@@ -87,11 +90,11 @@ export default class Grid extends Component {
 
   componentDidMount() {
     this.syncGrid(true);
-    eventListener.add(window, 'resize', this.syncGrid);
+    this._eventListener.add(window, 'resize', this.syncGrid);
   }
 
   componentWillUnmount() {
-    eventListener.remove(window, 'resize', this.syncGrid);
+    this._eventListener.remove(window, 'resize', this.syncGrid);
   }
 
   getMaxBreatPoint(minBreakpoint) {
@@ -136,3 +139,6 @@ export default class Grid extends Component {
     );
   }
 }
+
+Grid.childContextTypes = gridContext;
+export default Grid;

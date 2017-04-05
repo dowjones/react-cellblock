@@ -19,19 +19,19 @@ import cellblock from 'cellblock';
 import {forceContext} from './util/handleStaleContext';
 
 @forceContext // apply patch
-export default class Column extends Component {
-  static propTypes = {
-    breakCount: PropTypes.number,
-    children: PropTypes.any,
-    className: PropTypes.string,
-    isRoot: PropTypes.bool,
-    offset: gridFraction,
-    viewport: PropTypes.array,
-    width: gridFraction
-  };
 
-  static contextTypes = gridContext;
-  static childContextTypes = gridContext;
+class Column extends Component {
+  static get propTypes() {
+    return {
+      breakCount: PropTypes.number,
+      children: PropTypes.any,
+      className: PropTypes.string,
+      isRoot: PropTypes.bool,
+      offset: gridFraction,
+      viewport: PropTypes.array,
+      width: gridFraction
+    };
+  }
 
   getChildContext() {
     return {
@@ -91,3 +91,7 @@ function fractionToPercent(v) {
 function decimalToPercent(v) {
   return parseFloat((v * 100).toFixed(4)) + '%';
 }
+
+Column.childContextTypes = gridContext;
+Column.contextTypes = gridContext;
+export default Column;

@@ -6,6 +6,13 @@ import Row from './Row';
 import Column from './Column';
 import observeGrid from './observeGrid';
 
+export {
+  Grid,
+  Row,
+  Column,
+  observeGrid
+};
+
 export default {
   Grid: Grid,
   Row: Row,

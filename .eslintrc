@@ -10,7 +10,7 @@
   ],
   "rules": {
     "react/jsx-no-undef": 1,
-    "react/jsx-quotes": [2, "double", "avoid-escape"],
+    "jsx-quotes": [2, "prefer-double"],
     "react/jsx-sort-prop-types": 2,
     "react/jsx-uses-react": 1,
     "react/jsx-uses-vars": 1,

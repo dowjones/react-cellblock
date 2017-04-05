@@ -1,5 +1,9 @@
 {
-  "loose": "all",
-  "optional": ["runtime"],
-  "stage": 0
+  "presets": [
+    "es2015",
+    "react"
+  ],
+  "plugins": [
+    "transform-decorators-legacy"
+  ]
 }
