@@ -2,9 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import {ROW, COL} from './constants';
 
 export default class Style extends Component {
-  static propTypes = {
-    gutter: PropTypes.number
-  };
+  static propTypes() {
+    return {
+      gutter: PropTypes.number
+    };
+  }
 
   render() {
     const gutter = this.props.gutter / 2;

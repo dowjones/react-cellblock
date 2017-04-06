@@ -1,4 +1,3 @@
-
 import proxyquire from 'proxyquire';
 import {stub} from 'sinon';
 import React, {PropTypes} from 'react';
@@ -13,10 +12,10 @@ import {
   renderIntoDocument
 } from 'react-addons-test-utils';
 
-import {Row, Column, observeGrid} from '../src';
+import {Grid, Row, Column, observeGrid} from '../src';
 
 describe('Grid', () => {
-  let Grid, options, eventlistener, rootNode, Module, Observer;
+  let options, eventlistener, rootNode, Module, Observer;
 
   beforeEach(() => {
     setWindowWidth(1280);
@@ -26,7 +25,7 @@ describe('Grid', () => {
       remove: stub()
     };
 
-    Grid = proxyquire('../src/Grid', {eventlistener: eventlistener});
+    Grid._eventListener = eventlistener;
 
     rootNode = document.createElement('div');
     document.documentElement.appendChild(rootNode);
