@@ -21,29 +21,6 @@ let breakCount = 0; // everytime grid changes, increment so we can check for sta
 import {updateObservers} from './util/handleStaleContext';
 
 class Grid extends Component {
-  static get propTypes() {
-    return {
-      breakpoints: validBreakpoints,
-      children: PropTypes.any,
-      className: PropTypes.string,
-      columnWidth: PropTypes.number,
-      flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-      gutterWidth: PropTypes.number,
-      initialBreakpoint: validBreakpoint,
-      onChange: PropTypes.func
-    };
-  }
-
-  static get defaultProps() {
-    return {
-      onChange() {},
-      columnWidth: 60,
-      gutterWidth: 20,
-      breakpoints: [4, 8, 12, 16],
-      flexible: [4]
-    };
-  }
-
   constructor(props) {
     super(props);
     this.syncGrid = this.syncGrid.bind(this);
@@ -141,4 +118,21 @@ class Grid extends Component {
 }
 
 Grid.childContextTypes = gridContext;
+Grid.propTypes = {
+  breakpoints: validBreakpoints,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  columnWidth: PropTypes.number,
+  flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+  gutterWidth: PropTypes.number,
+  initialBreakpoint: validBreakpoint,
+  onChange: PropTypes.func
+}
+Grid.defaultProps = {
+  onChange() {},
+  columnWidth: 60,
+  gutterWidth: 20,
+  breakpoints: [4, 8, 12, 16],
+  flexible: [4]
+}
 export default Grid;

@@ -19,20 +19,7 @@ import cellblock from 'cellblock';
 import {forceContext} from './util/handleStaleContext';
 
 @forceContext // apply patch
-
 class Column extends Component {
-  static get propTypes() {
-    return {
-      breakCount: PropTypes.number,
-      children: PropTypes.any,
-      className: PropTypes.string,
-      isRoot: PropTypes.bool,
-      offset: gridFraction,
-      viewport: PropTypes.array,
-      width: gridFraction
-    };
-  }
-
   getChildContext() {
     return {
       cellblockColumn: this.grid,
@@ -94,4 +81,13 @@ function decimalToPercent(v) {
 
 Column.childContextTypes = gridContext;
 Column.contextTypes = gridContext;
+Column.propTypes = {
+  breakCount: PropTypes.number,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  isRoot: PropTypes.bool,
+  offset: gridFraction,
+  viewport: PropTypes.array,
+  width: gridFraction
+}
 export default Column;

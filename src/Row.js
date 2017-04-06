@@ -19,17 +19,6 @@ import {forceContext} from './util/handleStaleContext';
 
 @forceContext // apply patch
 class Row extends Component {
-  static get propTypes() {
-    return {
-      children: PropTypes.any,
-      className: PropTypes.string
-    };
-  }
-
-  static get contextTypes() {
-    return gridContext;
-  }
-
   getChildContext() {
     return {
       cellblock: true
@@ -55,4 +44,9 @@ class Row extends Component {
 }
 
 Row.childContextTypes = gridContext;
+Row.contextTypes = gridContext;
+Row.propTypes = {
+  children: PropTypes.any,
+  className: PropTypes.string
+}
 export default Row;
