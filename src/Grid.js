@@ -90,11 +90,11 @@ class Grid extends Component {
 
   componentDidMount() {
     this.syncGrid(true);
-    this._eventListener.add(window, 'resize', this.syncGrid);
+    this._eventListener.add(global.window, 'resize', this.syncGrid);
   }
 
   componentWillUnmount() {
-    this._eventListener.remove(window, 'resize', this.syncGrid);
+    this._eventListener.remove(global.window, 'resize', this.syncGrid);
   }
 
   getMaxBreatPoint(minBreakpoint) {

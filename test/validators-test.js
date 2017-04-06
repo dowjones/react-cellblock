@@ -25,7 +25,7 @@ describe('Grid Type Validation', () => {
     (Types.validBreakpoint({
       prop: 2,
       breakpoints: [1, 3, 5],
-    }, 'prop') instanceof Error).should.be.true();
+    }, 'prop', true) instanceof Error).should.be.true();
     (Types.validBreakpoint({
       prop: 2,
       breakpoints: null,
