@@ -1,10 +1,3 @@
-const exports = {
-  ROW: 'cb-row',
-  COL: 'cb-col',
-  GRID: 'cb-grid'
-};
-
-const { ROW, COL, GRID } = exports;
-
-export { ROW, COL, GRID };
-export default exports;
+export const ROW = 'cb-row';
+export const COL = 'cb-col';
+export const GRID = 'cb-grid';
