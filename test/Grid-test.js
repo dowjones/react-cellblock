@@ -15,7 +15,13 @@ import {
 import {Grid, Row, Column, observeGrid} from '../src';
 
 describe('Grid', () => {
-  let options, eventlistener, rootNode, Module, Observer;
+  let options, eventlistener, rootNode, Module, Observer, windowWidth;
+
+  Object.defineProperty(document.documentElement, 'clientWidth', {
+    get: () => windowWidth
+  });
+
+  const setWindowWidth = width => windowWidth = width;
 
   beforeEach(() => {
     setWindowWidth(1280);
@@ -44,8 +50,8 @@ describe('Grid', () => {
   });
 
   afterEach(() => {
-    delete document.documentElement.clientWidth;
-    rootNode.parentNode.removeChild(rootNode);
+    setWindowWidth(0);
+    document.documentElement.removeChild(rootNode);
   });
 
   describe('Breakpoints', () => {
@@ -415,15 +421,19 @@ describe('Grid', () => {
 
     it('should handle ie window exception', () => {
       var c = document.documentElement.clientWidth;
-      delete document.documentElement.clientWidth;
-      document.getElementsByTagName('body')[0].clientWidth = 800;
+
+      // remove the preferred way
+      setWindowWidth(undefined);
+      Object.defineProperty(document.getElementsByTagName('body')[0], 'clientWidth', {
+        get: () => 800
+      });
 
       const grid = render(<Grid {... options}><Observer/></Grid>, rootNode);
       const mod = findRenderedComponentWithType(grid, Module);
 
       mod.props.breakpoint.should.equal(5);
 
-      document.documentElement.clientWidth = c;
+      setWindowWidth(c);
     });
   });
 
@@ -599,10 +609,6 @@ describe('Grid', () => {
 
 function getThreshold(breakpoint, col, gutter) {
   return (breakpoint * col) + (breakpoint * gutter);
-}
-
-function setWindowWidth(width) {
-  document.documentElement.clientWidth = width;
 }
 
 function removeRoot(col) {
