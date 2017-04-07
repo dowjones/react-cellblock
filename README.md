@@ -3,6 +3,7 @@
 ![Hello Grid](docs/sample-grid.jpg)
 
 ![Travis](https://api.travis-ci.org/dowjones/react-cellblock.svg?branch=master)
+![npm version](https://badge.fury.io/js/react-cellblock.svg)
 
 React Cellblock makes it easy to build components that respond not only to a grid’s break point, but also to the size of their containing column.
 
