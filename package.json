@@ -39,7 +39,7 @@
   "scripts": {
     "lint": "eslint src test",
     "prepublish": "babel src --out-dir lib",
-    "test": "nyc mocha",
+    "test": "npm run lint && nyc mocha",
     "test:watch": "mocha -G -w -R min -t 600 -r test/_helpers/boot $(find test ./test -type f -name '*-test.js')",
     "start": "webpack-dev-server --hot --inline",
     "build": "webpack -d"
