@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {ROW, COL} from './constants';
 
 const Style = (props) => {
-  const ctx = this.props.ctx;
+  const ctx = props.ctx;
   const gutter = props.gutter / 2;
   const style = `
     .${ctx} .${ROW}:after, .${ctx} .${COL}:after{content:'';display:block;height:0;visibility:hidden;clear:both;}
@@ -15,8 +15,8 @@ const Style = (props) => {
 }
 
 Style.propTypes = {
-  gutter: PropTypes.number,
-  ctx: PropTypes.string
+  ctx: PropTypes.string,
+  gutter: PropTypes.number
 }
 
 export default Style;

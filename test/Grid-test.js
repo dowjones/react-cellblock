@@ -192,7 +192,7 @@ describe('Grid', () => {
     });
   });
 
-  describe('classnames', () => {
+  describe('Classnames', () => {
     let testgrid;
 
     beforeEach(() => {
@@ -218,8 +218,14 @@ describe('Grid', () => {
     });
 
     it('should apply grid root class correctly', () => {
-      findRenderedDOMComponentWithClass(testgrid, 'a').className.should.eql('cb-grid a cellblock-grid-0');
-      findRenderedDOMComponentWithClass(testgrid, 'd').className.should.eql('cb-grid d cellblock-grid-1');
+      const classNameA = findRenderedDOMComponentWithClass(testgrid, 'a').className;
+      const classNameB = findRenderedDOMComponentWithClass(testgrid, 'd').className;
+      const uniqueRE = /\bcbg-(\d+)\b/;
+
+      const a = uniqueRE.exec(classNameA)[1];
+      const b = uniqueRE.exec(classNameB)[1];
+
+      a.should.not.equal(b);
     });
 
     it('should apply row class correctly', () => {

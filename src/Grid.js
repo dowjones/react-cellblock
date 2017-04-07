@@ -108,7 +108,7 @@ class Grid extends Component {
   render() {
     const {breakpoint, breakCount} = this.state;
     const {className='', gutterWidth, children} = this.props;
-    const gridClass = `cellblock-grid-${this.gridId}`;
+    const gridClass = `cbg-${this.gridId}`;
     const uniqueClass = `${className} ${gridClass}`;
     const breakPointRange = [breakpoint, this.getMaxBreatPoint(breakpoint)];
     return (
