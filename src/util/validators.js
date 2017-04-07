@@ -10,10 +10,14 @@ export function gridFraction(props, propName, componentName) {
 }
 
 export function validBreakpoint(props, propName) {
-  if (typeof window === 'undefined' && !props[propName]) {
+  if (typeof global.window === 'undefined' && !props[propName]) {
     return new Error('Isomorphic grids require an initialBreakpoint');
+  } else if (typeof props[propName] === 'undefined') {
+    // don't require a breakpoint
+    return null;
   }
-  return PropTypes.oneOf(props.breakpoints).apply(null, arguments);
+  return props.breakpoints && props.breakpoints.includes(props[propName]) ? 
+    null : new Error('expected a valid breakpoint')
 }
 
 export function validBreakpoints(props, propName, componentName) {

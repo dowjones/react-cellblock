@@ -16,11 +16,7 @@ import {forceContext} from './util/handleStaleContext';
 
 @forceContext // apply patch
 export default function observeGrid(DumbComponent) {
-  return class extends Component {
-    static displayName = 'observeGrid(' + (DumbComponent.displayName || DumbComponent.name) + ')';
-
-    static contextTypes = gridContext;
-
+  class Wrapped extends Component {
     render() {
       const {cellblockColumn, cellblockGet} = this.context;
       const v = cellblockGet('viewport');
@@ -35,5 +31,9 @@ export default function observeGrid(DumbComponent) {
         {... this.props}
       />);
     }
-  };
+  }
+
+  Wrapped.displayName = 'observeGrid(' + (DumbComponent.displayName || DumbComponent.name) + ')';
+  Wrapped.contextTypes = gridContext;
+  return Wrapped;
 }

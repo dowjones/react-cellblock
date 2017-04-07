@@ -1,5 +1,3 @@
-export default {
-  ROW: 'cb-row',
-  COL: 'cb-col',
-  GRID: 'cb-grid'
-};
+export const ROW = 'cb-row';
+export const COL = 'cb-col';
+export const GRID = 'cb-grid';

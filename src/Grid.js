@@ -21,38 +21,17 @@ let breakCount = 0; // everytime grid changes, increment so we can check for sta
 let gridId = 0; // every grid gets it's own id
 import {updateObservers} from './util/handleStaleContext';
 
-export default class Grid extends Component {
-  static propTypes = {
-    breakpoints: validBreakpoints,
-    children: PropTypes.any,
-    className: PropTypes.string,
-    columnWidth: PropTypes.number,
-    flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
-    gutterWidth: PropTypes.number,
-    initialBreakpoint: validBreakpoint,
-    onChange: PropTypes.func
-  };
-
-  static childContextTypes = gridContext;
-
-  static defaultProps = {
-    onChange() {},
-    columnWidth: 60,
-    gutterWidth: 20,
-    breakpoints: [4, 8, 12, 16],
-    flexible: [4]
-  };
-
+class Grid extends Component {
   constructor(props) {
     super(props);
     this.syncGrid = this.syncGrid.bind(this);
     this.updateGrid = this.updateGrid.bind(this);
     this.gridId = gridId++;
+    this._eventListener = Grid._eventListener || eventListener;
+    this.state = {
+      breakpoint: this.props.initialBreakpoint
+    };
   }
-
-  state = {
-    breakpoint: this.props.initialBreakpoint
-  };
 
   getChildContext() {
     const {props} = this;
@@ -89,11 +68,11 @@ export default class Grid extends Component {
 
   componentDidMount() {
     this.syncGrid(true);
-    eventListener.add(window, 'resize', this.syncGrid);
+    this._eventListener.add(global.window, 'resize', this.syncGrid);
   }
 
   componentWillUnmount() {
-    eventListener.remove(window, 'resize', this.syncGrid);
+    this._eventListener.remove(global.window, 'resize', this.syncGrid);
   }
 
   getMaxBreatPoint(minBreakpoint) {
@@ -140,3 +119,23 @@ export default class Grid extends Component {
     );
   }
 }
+
+Grid.childContextTypes = gridContext;
+Grid.propTypes = {
+  breakpoints: validBreakpoints,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  columnWidth: PropTypes.number,
+  flexible: PropTypes.oneOfType([PropTypes.bool, PropTypes.array]),
+  gutterWidth: PropTypes.number,
+  initialBreakpoint: validBreakpoint,
+  onChange: PropTypes.func
+}
+Grid.defaultProps = {
+  onChange() {},
+  columnWidth: 60,
+  gutterWidth: 20,
+  breakpoints: [4, 8, 12, 16],
+  flexible: [4]
+}
+export default Grid;

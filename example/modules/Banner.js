@@ -1,7 +1,9 @@
 
 import React from 'react';
-import {observeGrid} from '../../src';
+import { observeGrid } from '../../src';
 import classnames from 'classnames';
+
+console.log('OBSERVE GRID', observeGrid);
 
 export default observeGrid(({breakpoint, className, children}) => {
   return (

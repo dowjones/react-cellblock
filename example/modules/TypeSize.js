@@ -1,7 +1,10 @@
 
 import React from 'react';
-import {observeGrid} from '../../src';
+import {observeGrid} from '../../src/index';
 import classnames from 'classnames';
+
+console.log('OBSERVE GRID IS', observeGrid);
+
 
 export default observeGrid(function TypeSize({
   className,
