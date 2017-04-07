@@ -2,6 +2,7 @@
 
 ![Hello Grid](docs/sample-grid.jpg)
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Travis](https://api.travis-ci.org/dowjones/react-cellblock.svg?branch=master)
 ![npm version](https://badge.fury.io/js/react-cellblock.svg)
 
