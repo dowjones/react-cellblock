@@ -10,3 +10,4 @@ dump.rdb
 newrelic.js
 .DS_STORE
 .nyc_output
+.idea/
