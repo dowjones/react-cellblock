@@ -278,16 +278,16 @@ Notice that the fractions only need to make sense within each row. You can use q
 If you want to keep the units you are dealing with in mind, it can be helpful to express your fractions using those units as denominators. Here is an example of what that might look like:
 ```js
   <Row>
-    <Column width="3/8"}>I am three units</Column>
-    <Column width="5/8"/>
+    <Column width="3/8">I am three units</Column>
+    <Column width="5/8">
       I am five units
       <Row>
         <Column width="3/5">
           I am three of the five units above
-        Ccolumn>
-        <Column width="3/5">
+        </Column>
+        <Column width="2/5">
           I am two of the five units above
-        Ccolumn>
+        </Column>
       </Row>
     </Column>
   </Row>
