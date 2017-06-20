@@ -2,7 +2,8 @@
  * The top level Grid component
  * Only used once per page
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import Column from './Column';
 import Style from './util/Style';
 import eventListener from 'eventlistener';

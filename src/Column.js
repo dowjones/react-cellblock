@@ -2,7 +2,8 @@
  * The Column component
  * divides Rows into fractions
  */
-import React, {Component, PropTypes} from 'react';
+import React, {Component} from 'react';
+import PropTypes from 'prop-types';
 import {gridFraction} from './util/validators';
 import {COL, GRID} from './util/constants';
 import gridContext from './util/context';
